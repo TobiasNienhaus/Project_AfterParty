@@ -6,7 +6,7 @@ RoomHandler roomHandler;
 
 void setup()
 {
-  fullScreen(FX2D);
+  fullScreen(FX2D, 2);
   roomHandler = new RoomHandler();
   roomHandler.initRooms();
 }

@@ -14,6 +14,11 @@ void mousePressed()
   roomHandler.handleMousePress();
 }
 
+void mouseReleased()
+{
+  roomHandler.handleMouseUp();
+}
+
 void keyPressed()
 {
   roomHandler.handleKeyPress();

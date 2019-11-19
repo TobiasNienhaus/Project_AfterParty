@@ -6,8 +6,11 @@ public class RoomHandler
   
   Room active;
   
+  Inventory inv;
+  
   public void initRooms()
   {
+    inv = new Inventory();
     roomA = new TestRoom();
     roomB = new TestRoom2();
     active = roomA;
@@ -26,6 +29,7 @@ public class RoomHandler
   void display()
   {
     active.display();
+    inv.display();
   }
   
   void handleKeyPress()
@@ -41,5 +45,12 @@ public class RoomHandler
     else if (mouseButton == CENTER)  b = MouseButton.Middle;
     
     active.handleMouseDown(mouseX,mouseY,b);
+    
+    inv.onMousePress();
+  }
+  
+  void handleMouseUp()
+  {
+    inv.onMouseRelease();
   }
 }
