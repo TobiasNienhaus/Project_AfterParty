@@ -1,14 +1,3 @@
-// Inventory structure
-
-// have an array of slots
-// have an amount of clickable things in the bottom
-
-// drag and drop
-//    have a function to combine two objects
-//  Inventory has callback for mousePressed and mouseReleased
-//  Have a dragged object that follows the mouse
-//      is updated when pressing mouse
-//      is updated when releasing mouse (checking for possible combination when dropped on other)
 
 public class Inventory
 {
@@ -34,12 +23,17 @@ public class Inventory
       item.setPos(rect.x,rect.y);
     }
     
+    void updateSize()
+    {
+      item.setSize(rect.w, rect.h);
+    }
+    
     ItemType type() { return item.getType(); }
   }
   
   InventoryItem[] items;
   
-  int invSize = 8;
+  int invSize = 6;
   
   public Inventory()
   {
@@ -57,17 +51,31 @@ public class Inventory
       Item item = random(1f) < 0.5f ? 
         new TestItem1(xPos, yPos, rectSize, rectSize) :
         new TestItem2(xPos, yPos, rectSize, rectSize);
+      if(i > int(items.length/2f))
+        item = new EmptyItem();
       Rect r = new Rect(xPos, yPos, rectSize, rectSize);
       items[i] = new InventoryItem(item, r);
     }
   }
   
-  public void AddItem(Item item)
+  public boolean AddItem(Item item)
   {
     int index = findFirstEmpty();
     if(index == -1)
-      return;
+      return false;
     items[index].item = item;
+    return true;
+  }
+  
+  public boolean AddItem(ItemType type)
+  {
+    int index = findFirstEmpty();
+    if(index == -1) return false;
+    Item item = createItemFromType(type);
+    items[index].item = item;
+    items[index].updatePos();
+    items[index].updateSize();
+    return true;
   }
   
   public void deleteItem(int index)
@@ -157,30 +165,47 @@ public class Inventory
   Item draggedItem;
   int draggedIndex = -1;
   
-  void onMousePress()
+  boolean onMousePress()
   {
+    boolean res = false;
     for(int i = 0; i < items.length; i++)
     {
       if(MouseInRect(items[i].rect))
       {
         draggedItem = createItemFromType(items[i].item);
         draggedIndex = i;
+        res = true;
       }
     }
+    return res;
   }
   
-  void onMouseRelease()
+  boolean onMouseRelease()
   {
     //get item thats dropped on
+    boolean res = false;
     for(int i = 0; i < items.length; i++)
     {
       if(MouseInRect(items[i].rect))
       {
         CombineItems(items[draggedIndex].item, items[i].item);
+        res = true;
       } 
     }
+    
+    if(!res)
+    {
+      if(roomHandler.dropItem(draggedItem))
+      {
+        deleteItem(draggedIndex);
+        reorderArray();
+        res = true;
+      }
+    }
+    
     draggedItem = null;
     draggedIndex = -1;
+    return res;
   }
   
   void display()
@@ -193,5 +218,18 @@ public class Inventory
       draggedItem.setPos(mouseX,mouseY);
       draggedItem.display();
     }
+    
+    pushMatrix();
+    textSize(64);
+    textAlign(LEFT, TOP);
+    text("Bottles: " + bottleCount, 25, 25);
+    popMatrix();
+  }
+  
+  int bottleCount = 0;
+  
+  void collectBottle()
+  {
+    bottleCount++;
   }
 }

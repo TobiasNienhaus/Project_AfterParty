@@ -131,7 +131,7 @@ public class TestItem1 extends Item
     case Empty:
       return other;
     case Test1:
-      return new ErrorItem();
+      return new EmptyItem();
     case Test2:
       return new TestItem3(x, y, w, h);
     default:

@@ -1,7 +1,5 @@
 import processing.sound.*;
 
-Room active;
-
 RoomHandler roomHandler;
 
 void setup()

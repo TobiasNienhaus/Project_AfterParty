@@ -2,6 +2,44 @@
 
 public abstract class Room
 {
+  public class HiddenItem
+  {
+    ItemType type;
+    float x, y, w, h;
+    Rect rect;
+    
+    PImage img;
+    
+    boolean found = false;
+    
+    public HiddenItem(float x, float y, float w, float h, ItemType type, String imgPath)
+    {
+      this.x = x;
+      this.y = y;
+      this.w = w;
+      this.h = h;
+      this.type = type;
+      img = loadImage(imgPath);
+      rect = new Rect(x, y, w, h);
+    }
+    
+    void display()
+    {
+      if(found) return;
+      rect.debugDisplay();
+      image(img, x, y, w, h);
+    }
+    
+    void checkClick()
+    {
+      if(found) return;
+      if(MouseInRect(rect))
+      {
+        if(!roomHandler.inv.AddItem(type)) return;
+        found = true;
+      }
+    }
+  }
   PImage background;
   String id;
   
@@ -13,7 +51,7 @@ public abstract class Room
   
   void display()
   {
-    image(background, 0, 0);
+    image(background, 0, 0, width, height);
   }
   
   abstract void handleMouseDown(int x, int y, MouseButton button);
@@ -23,4 +61,6 @@ public abstract class Room
   {
     return this.id == other.id;
   }
+  
+  abstract boolean dropItem(Item item);
 }
