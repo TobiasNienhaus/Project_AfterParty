@@ -5,6 +5,8 @@ public class RoomHandler
   Room roomB;
   Room roomC;
   
+  Room kitchen;
+  
   Room active;
   
   Inventory inv;

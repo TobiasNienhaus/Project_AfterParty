@@ -66,3 +66,59 @@ public abstract class Room
   
   abstract boolean dropItem(Item item);
 }
+
+public class LivingRoom extends Room
+{
+  public LivingRoom()
+  {
+    super("Living Room", loadImage("livingroom.png"));
+  }
+  
+  public void display()
+  {
+    super.display();
+  }
+  
+  void handleMouseDown(int x, int y, MouseButton button)
+  {
+    
+  }
+  
+  void handleKeyDown(Key k)
+  {
+    
+  }
+  
+  boolean dropItem(Item item)
+  {
+    return false;
+  }
+}
+
+public class Kitchen extends Room
+{
+  public Kitchen()
+  {
+    super("Kitchen", loadImage("kitchen.jpg"));
+  }
+  
+  public void display()
+  {
+    super.display();
+  }
+  
+  void handleMouseDown(int x, int y, MouseButton button)
+  {
+    
+  }
+  
+  void handleKeyDown(Key k)
+  {
+    
+  }
+  
+  boolean dropItem(Item item)
+  {
+    return false;
+  }
+}
