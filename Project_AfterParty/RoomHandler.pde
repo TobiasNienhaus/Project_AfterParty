@@ -8,10 +8,13 @@ public class RoomHandler
   Room active;
   
   Inventory inv;
+  TaskHandler tHandler;
   
   public void initRooms()
   {
     inv = new Inventory();
+    tHandler = new TaskHandler();
+    
     roomA = new TestRoom();
     roomB = new TestRoom2();
     roomC = new TestRoom3();
@@ -37,6 +40,7 @@ public class RoomHandler
   {
     active.display();
     inv.display();
+    tHandler.display();
   }
   
   void handleKeyPress()

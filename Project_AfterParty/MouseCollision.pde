@@ -20,12 +20,12 @@ boolean PointInRect(float x, float y, Rect area)
 
 boolean MouseInCircle(Circle area)
 {
-  return dist(mouseX, mouseY, area.x, area.y) < area.r;
+  return dist(mouseX, mouseY, area.x, area.y) < area.r/2f;
 }
 
 boolean PointInCircle(float x, float y, Circle area)
 {
-  return dist(x, y, area.x, area.y) < area.r;
+  return dist(x, y, area.x, area.y) < area.r/2f;
 }
 
 public class Rect

@@ -8,12 +8,14 @@ public class TestRoom extends Room
   boolean testDrop = false;
   
   Pickup p1;
+  HiddenItem item;
   
   public TestRoom()
   {
     super("Room1", loadImage("wallpaper.jpg"));
     clickArea1 = new Rect(width/2f-100f, height/2f-100f, 200f, 200f);
     c = new Circle(1500, 400, 300);
+    item = new HiddenItem(900, 700, 100, 100, ItemType.Test2, "item2.png");
     testRect = new Rect(100, 100, 200, 200);
     
     p1 = new Pickup(400, 300, 150, 100);
@@ -34,6 +36,7 @@ public class TestRoom extends Room
     }
     
     p1.display();
+    item.display();
   }
   
   void handleMouseDown(int x, int y, MouseButton button)
@@ -43,6 +46,11 @@ public class TestRoom extends Room
     if(PointInCircle(x, y, c))
       roomHandler.setRoomCActive();
     p1.checkClick();
+    if(item.checkClick())
+    {
+      roomHandler.tHandler.getTask1().fillReq2();
+      println("click on item");
+    }
   }
   
   void handleKeyDown(Key k)
@@ -84,7 +92,11 @@ public class TestRoom2 extends Room
   {
     if(PointInCircle(x, y, c))
       roomHandler.setRoomAActive();
-    item.checkClick();
+    if(item.checkClick())
+    {
+      println("Click on Item");
+      roomHandler.tHandler.getTask1().fillReq1();
+    }
   }
   
   void handleKeyDown(Key k)

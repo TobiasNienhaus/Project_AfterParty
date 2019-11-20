@@ -30,14 +30,16 @@ public abstract class Room
       image(img, x, y, w, h);
     }
     
-    void checkClick()
+    boolean checkClick()
     {
-      if(found) return;
+      if(found) return true;
       if(MouseInRect(rect))
       {
-        if(!roomHandler.inv.AddItem(type)) return;
+        if(!roomHandler.inv.AddItem(type)) return false;
         found = true;
+        return true;
       }
+      return false;
     }
   }
   PImage background;
