@@ -6,21 +6,28 @@ public class RoomHandler
   Room roomC;
   
   Room kitchen;
+  Room living;
   
   Room active;
   
   Inventory inv;
   TaskHandler tHandler;
+  DialogueHandler dHandler;
   
   public void initRooms()
   {
     inv = new Inventory();
     tHandler = new TaskHandler();
+    dHandler = new DialogueHandler();
     
     roomA = new TestRoom();
     roomB = new TestRoom2();
     roomC = new TestRoom3();
-    active = roomA;
+    
+    kitchen = new Kitchen();
+    living = new LivingRoom();
+    
+    active = living;
   }
   
   public void setRoomAActive()
@@ -38,20 +45,35 @@ public class RoomHandler
     active = roomC;
   }
   
+  public void toKitchen()
+  {
+    active = kitchen;
+  }
+  
+  public void toLiving()
+  {
+    active = living;
+  }
+  
   void display()
   {
     active.display();
     inv.display();
     tHandler.display();
+    dHandler.display();
   }
   
   void handleKeyPress()
   {
+    if(key == 'm' || key == 'M')
+      dHandler.nextDialogue();
     active.handleKeyDown(Key.A);
   }
   
   void handleMousePress()
   {
+    if(dHandler.mousePress()) return;
+    
     if(inv.onMousePress()) return;
     MouseButton b = MouseButton.Left;
     if      (mouseButton == LEFT)    b = MouseButton.Left;

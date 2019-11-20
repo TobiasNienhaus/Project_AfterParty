@@ -69,19 +69,23 @@ public abstract class Room
 
 public class LivingRoom extends Room
 {
+  Rect toKitchen;
   public LivingRoom()
   {
-    super("Living Room", loadImage("livingroom.png"));
+    super("Living Room", loadImage("livingroom.jpg"));
+    toKitchen = new Rect(0, 0, width / 6f, height);
   }
   
   public void display()
   {
     super.display();
+    toKitchen.debugDisplay();
   }
   
   void handleMouseDown(int x, int y, MouseButton button)
   {
-    
+    if(MouseInRect(toKitchen))
+      roomHandler.toKitchen();
   }
   
   void handleKeyDown(Key k)
@@ -97,19 +101,23 @@ public class LivingRoom extends Room
 
 public class Kitchen extends Room
 {
+  Rect toLiving;
   public Kitchen()
   {
     super("Kitchen", loadImage("kitchen.jpg"));
+    toLiving = new Rect(width-(width/6f), 0, width/6f, height);
   }
   
   public void display()
   {
     super.display();
+    toLiving.debugDisplay();
   }
   
   void handleMouseDown(int x, int y, MouseButton button)
   {
-    
+    if(MouseInRect(toLiving))
+      roomHandler.toLiving();
   }
   
   void handleKeyDown(Key k)

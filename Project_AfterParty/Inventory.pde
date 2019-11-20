@@ -221,6 +221,7 @@ public class Inventory
   
   boolean onMouseRelease()
   {
+    if(draggedItem == null || draggedIndex == -1) return false;
     //get item thats dropped on
     boolean res = false;
     for(int i = 0; i < items.length; i++)

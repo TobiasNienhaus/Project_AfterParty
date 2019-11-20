@@ -46,7 +46,10 @@ public class Rect
   
   void debugDisplay()
   {
+    pushStyle();
+    fill(255,255,255,64);
     rect(x, y, w, h);
+    popStyle();
   }
 }
 
@@ -66,6 +69,9 @@ public class Circle
   
   void debugDisplay()
   {
+    pushStyle();
+    fill(255,255,255,64);
     circle(x, y, r);
+    popStyle();
   }
 }
