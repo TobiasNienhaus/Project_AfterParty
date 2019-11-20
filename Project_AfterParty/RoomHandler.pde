@@ -1,9 +1,6 @@
 
 public class RoomHandler
 {
-  Room roomA;
-  Room roomB;
-  Room roomC;
   
   Room kitchen;
   Room living;
@@ -20,29 +17,10 @@ public class RoomHandler
     tHandler = new TaskHandler();
     dHandler = new DialogueHandler();
     
-    roomA = new TestRoom();
-    roomB = new TestRoom2();
-    roomC = new TestRoom3();
-    
     kitchen = new Kitchen();
     living = new LivingRoom();
     
     active = living;
-  }
-  
-  public void setRoomAActive()
-  {
-    active = roomA;
-  }
-  
-  public void setRoomBActive()
-  {
-    active = roomB;
-  }
-  
-  public void setRoomCActive()
-  {
-    active = roomC;
   }
   
   public void toKitchen()
@@ -65,8 +43,6 @@ public class RoomHandler
   
   void handleKeyPress()
   {
-    if(key == 'm' || key == 'M')
-      dHandler.nextDialogue();
     active.handleKeyDown(Key.A);
   }
   

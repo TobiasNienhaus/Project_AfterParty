@@ -70,22 +70,28 @@ public abstract class Room
 public class LivingRoom extends Room
 {
   Rect toKitchen;
+  Rect dialogueTest1;
+  
   public LivingRoom()
   {
     super("Living Room", loadImage("livingroom.jpg"));
     toKitchen = new Rect(0, 0, width / 6f, height);
+    dialogueTest1 = new Rect(width/2f - 100, height/2f - 100, 200, 200);
   }
   
   public void display()
   {
     super.display();
     toKitchen.debugDisplay();
+    dialogueTest1.debugDisplay();
   }
   
   void handleMouseDown(int x, int y, MouseButton button)
   {
     if(MouseInRect(toKitchen))
       roomHandler.toKitchen();
+    if(MouseInRect(dialogueTest1))
+      roomHandler.dHandler.startDialogue(roomHandler.dHandler.test1);
   }
   
   void handleKeyDown(Key k)
@@ -102,22 +108,35 @@ public class LivingRoom extends Room
 public class Kitchen extends Room
 {
   Rect toLiving;
+  Rect dialogueTest2;
+  int dialogueCounter = 0;
+  
   public Kitchen()
   {
     super("Kitchen", loadImage("kitchen.jpg"));
     toLiving = new Rect(width-(width/6f), 0, width/6f, height);
+    dialogueTest2 = new Rect (width/4f-100, height/4f-100, 200,200);
   }
   
   public void display()
   {
     super.display();
     toLiving.debugDisplay();
+    dialogueTest2.debugDisplay();
   }
   
   void handleMouseDown(int x, int y, MouseButton button)
   {
     if(MouseInRect(toLiving))
       roomHandler.toLiving();
+    if(MouseInRect(dialogueTest2))
+    {
+      if(dialogueCounter <= 0)
+        roomHandler.dHandler.startDialogue(roomHandler.dHandler.test2);
+      else if(dialogueCounter == 1)
+        roomHandler.dHandler.startDialogue(roomHandler.dHandler.test3);
+      dialogueCounter += dialogueCounter <= 0 ? 1 : 0;
+    }
   }
   
   void handleKeyDown(Key k)

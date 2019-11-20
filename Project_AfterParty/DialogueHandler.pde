@@ -16,45 +16,35 @@ public class DialogueHandler
     
     String getLine()
     {
-      if(currentLine > lines.length)
+      if(finished) return "Error";
+      if(currentLine >= lines.length || currentLine < 0)
       {
         finished = true;
         return "Error";
       }
       return lines[currentLine];
     }
+    
+    void next() { currentLine++; if(currentLine >= lines.length) finished = true; }
+    void reset() { currentLine = 0; finished = false; }
   }
   
-  public boolean hasText = true;
+  public boolean hasDialogue = false;
+  
+  Dialogue test1;
+  Dialogue test2;
+  Dialogue test3;
   
   public DialogueHandler()
   {
-    textIndex = 0;
-    if(dialogue[textIndex] == "") hasText = false;
+    loadDialogue();
   }
   
-  public void nextDialogue()
-  {
-    textIndex++;
-    if(textIndex > dialogue.length) {
-      hasText = false;
-      return;
-    }
-    if(dialogue[textIndex] == "") hasText = false;
-    else hasText = true;
-  }
-  
-  String[] dialogue = {
-    "",
-    "Test1Test1Test1Test1Test1Test1\nTest1Test1Test1Test1Test1Test1",
-    "",
-    "Test2Test2Test2Test2Test2Test2\nTest2Test2Test2Test2Test2Test2"
-  };
-  int textIndex = 0;
+  Dialogue current;
   
   public void display()
   {
-    if(!hasText) return;
+    if(!hasDialogue) return;
     pushMatrix();
     pushStyle();
     fill(255);
@@ -68,15 +58,48 @@ public class DialogueHandler
     textAlign(CENTER, CENTER);
     textSize(60);
     fill(0);
-    text(dialogue[textIndex], rectX, rectY, rectW, rectH);
+    text(current.getLine(), rectX, rectY, rectW, rectH);
     popStyle();
     popMatrix();
   }
   
+  public boolean startDialogue(Dialogue d)
+  {
+    if(!(current == null || current.finished)) return false;
+    current = d;
+    hasDialogue = true;
+    return true;
+  }
+  
   public boolean mousePress()
   {
-    if(!hasText) return false;
-    nextDialogue();
+    if(!hasDialogue) return false;
+    current.next();
+    if(current.finished)
+    {
+      hasDialogue = false;
+      current.reset();
+      current = null;
+      return true;
+    }
     return true;
+  }
+  
+  void loadDialogue()
+  {
+    test1 = new Dialogue(new String[]{
+      "Test\nThis is a test",
+      "Test\nThis is the second line",
+      "Test\nThis is the third line"
+    });
+    test2 = new Dialogue(new String[]{
+      "This is a second test\nOne",
+      "This is a second test\nTwo",
+      "This is a second test\nThree",
+    });
+    test3 = new Dialogue(new String[]{
+      "WOW, a third test!",
+      "1", "2", "3", "4", "5", "6", "endless possibilities", "7", "9", "10"
+    });
   }
 }
