@@ -11,7 +11,10 @@ enum Key
 
 void mousePressed()
 {
-  roomHandler.handleMousePress();
+  if(!canClose())
+    roomHandler.handleMousePress();
+  else
+    exit();
 }
 
 void mouseReleased()

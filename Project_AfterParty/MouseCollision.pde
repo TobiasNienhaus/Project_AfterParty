@@ -44,12 +44,35 @@ public class Rect
     this.h = h;
   }
   
-  void debugDisplay()
+  void display()
   {
+    if(MouseInRect(this)) cursor(hand_selected);
     pushStyle();
     fill(255,255,255,64);
     rect(x, y, w, h);
     popStyle();
+  }
+}
+
+public class ImageRect extends Rect
+{
+  PImage img;
+  public ImageRect(float x, float y, float w , float h, PImage img)
+  {
+    super(x, y, w, h);
+    this.img = img;
+  }
+  
+  public ImageRect(float x, float y, float w, float h, String imgPath)
+  {
+    super(x, y, w, h);
+    img = loadImage(imgPath);
+  }
+  
+  void display()
+  {
+    if(MouseInRect(this)) cursor(hand_selected);
+    image(img, x, y, w,h);
   }
 }
 
@@ -69,6 +92,7 @@ public class Circle
   
   void debugDisplay()
   {
+    if(MouseInCircle(this)) cursor(hand_selected);
     pushStyle();
     fill(255,255,255,64);
     circle(x, y, r);

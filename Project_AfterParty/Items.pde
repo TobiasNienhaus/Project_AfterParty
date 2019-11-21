@@ -1,6 +1,6 @@
 enum ItemType
 {
-  Test1, Test2, Test3, Empty, Error
+  Test1, Test2, Test3, Empty, Error, Hat, GlassesNoFrame, GlassesFrame, GlassesComplete
 }
 
 void printItemType(ItemType type)
@@ -21,6 +21,18 @@ void printItemType(ItemType type)
     break;
   case Error:
     println("Error");
+    break;
+  case Hat:
+    println("Hat");
+    break;
+  case GlassesNoFrame:
+    println("GlassesNoFrame");
+    break;
+  case GlassesFrame:
+    println("GlassesFrame");
+    break;
+  case GlassesComplete:
+    println("GlassesComplete");
     break;
   default:
     println("default");
@@ -46,6 +58,14 @@ Item createItemFromType(ItemType type)
     return new TestItem2(0f, 0f, 0f, 0f);
   case Test3:
     return new TestItem3(0f, 0f, 0f, 0f);
+  case Hat:
+    return new HatItem(0f, 0f, 0f, 0f);
+  case GlassesNoFrame:
+    return new GlassesNoFrameItem(0f, 0f, 0f, 0f);
+  case GlassesFrame:
+    return new GlassesFrameItem(0f, 0f, 0f, 0f);
+  case GlassesComplete:
+    return new GlassesCompleteItem(0f, 0f, 0f, 0f);
   case Empty:
     return new EmptyItem();
   case Error:
@@ -191,5 +211,70 @@ public class TestItem3 extends Item
     default:
       return new ErrorItem();
     }
+  }
+}
+
+public class HatItem extends Item
+{
+  public HatItem(float x, float y, float w, float h)
+  {
+    super(x, y, w, h, "ph/hat.png");
+  }
+  
+  public ItemType getType() { return ItemType.Hat; }
+  
+  public Item Combine(Item other)
+  {
+    
+    return new ErrorItem();
+  }
+}
+
+public class GlassesNoFrameItem extends Item
+{
+  public GlassesNoFrameItem(float x, float y, float w, float h)
+  {
+    super(x, y, w, h, "ph/glassesnoframe.png");
+  }
+  
+  public ItemType getType() { return ItemType.GlassesNoFrame; }
+  
+  public Item Combine(Item other)
+  {
+    if(other.getType() == ItemType.GlassesFrame)
+      return new GlassesCompleteItem(x, y, w, h);
+    else return new ErrorItem();
+  }
+}
+
+public class GlassesFrameItem extends Item
+{
+  public GlassesFrameItem(float x, float y, float w, float h)
+  {
+    super(x, y, w, h, "ph/glassesframe.png");
+  }
+  
+  public ItemType getType() { return ItemType.GlassesFrame; }
+  
+  public Item Combine(Item other)
+  {
+    if(other.getType() == ItemType.GlassesNoFrame)
+      return new GlassesCompleteItem(x, y, w, h);
+    else return new ErrorItem();
+  }
+}
+
+public class GlassesCompleteItem extends Item
+{
+  public GlassesCompleteItem(float x, float y, float w, float h)
+  {
+    super(x, y, w, h, "ph/glassescomplete.png");
+  }
+  
+  public ItemType getType() { return ItemType.GlassesComplete; }
+  
+  public Item Combine(Item other)
+  {
+    return new ErrorItem();
   }
 }

@@ -1,7 +1,6 @@
 
 public class RoomHandler
 {
-  
   Room kitchen;
   Room living;
   

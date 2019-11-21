@@ -8,21 +8,21 @@ public class Pickup
   
   boolean picked = false;
   
-  public Pickup(float x, float y, float w, float h)
+  public Pickup(float x, float y, float w)
   {
-    area = new Rect(x, y, w, h);
-    img = loadImage("bottle.jpg");
+    area = new Rect(x, y, w, w*2);
+    img = loadImage("ph/bottle.png");
     
     this.x = x;
     this.y = y;
     this.w = w;
-    this.h = h;
+    this.h = w*2;
   }
   
   void display()
   {
     if(picked) return;
-    area.debugDisplay();
+    area.display();
     image(img, x, y, w, h);
   }
   

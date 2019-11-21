@@ -5,9 +5,13 @@ public class TaskHandler
   
   public TaskHandler()
   {
-    tasks = new Task[2];
-    tasks[0] = new TestTask();
-    tasks[1] = new TestTask2();
+    tasks = new Task[3];
+    tasks[0] = new HatTask();
+    tasks[1] = new BottleTask();
+    tasks[2] = new GlassesTask();
+    for(int i = 0; i < tasks.length; i++)
+      if(tasks[i] == null)
+        tasks[i] = new EmptyTask();
   }
   
   void display()
@@ -21,6 +25,16 @@ public class TaskHandler
     popMatrix();
   }
   
+  public HatTask getHatTask()
+  {
+    return (HatTask)tasks[0];
+  }
+  
+  public GlassesTask getGlassesTask()
+  {
+    return (GlassesTask)tasks[2];
+  }
+  
   int fulfilledCount()
   {
     int c = 0;
@@ -31,14 +45,9 @@ public class TaskHandler
     return c;
   }
   
-  public TestTask getTask1()
+  boolean allDone()
   {
-    return (TestTask)tasks[0];
-  }
-  
-  public TestTask2 getTask2()
-  {
-    return (TestTask2)tasks[1];
+    return tasks.length == fulfilledCount();
   }
 }
 
@@ -51,66 +60,58 @@ public abstract class Task
   int taskCount;
 }
 
-public class TestTask extends Task
+public class EmptyTask extends Task
 {
-  public TestTask()
+  public EmptyTask(){}
+  public boolean fulfilled() { return false; }
+}
+
+public class HatTask extends Task
+{
+  public HatTask()
   {
-    super();
-    taskCount = 2;
+    taskCount = 1;
     requirements = new boolean[taskCount];
-    for(int i = 0; i < requirements.length; i++)
-      requirements[i] = false;
   }
   
-  boolean fulfilled()
+  public void fulfill()
   {
-    for(int i = 0; i < requirements.length; i++)
-    {
-      if(!requirements[i]) return false;
-    }
-    return true;
-  }
-  
-  void fillReq1()
-  {
-    println("Fill Req 1");
     requirements[0] = true;
   }
   
-  void fillReq2()
+  public boolean fulfilled()
   {
-    println("Fill Req 2");
-    requirements[1] = true;
+    for(boolean b : requirements)
+      if(!b) return false;
+    return true;
   }
 }
 
-public class TestTask2 extends Task
+public class BottleTask extends Task
 {
-  public TestTask2()
+  public BottleTask() {}
+  
+  public boolean fulfilled()
   {
-    super();
-    taskCount = 2;
+    return roomHandler.inv.bottleCount == roomHandler.inv.maxBottleCount;
+  }
+}
+
+public class GlassesTask extends Task
+{
+  public GlassesTask()
+  {
+    taskCount = 1;
     requirements = new boolean[taskCount];
-    for(int i = 0; i < requirements.length; i++)
-      requirements[i] = false;
   }
   
-  boolean fulfilled()
-  {
-    for(int i = 0; i < requirements.length; i++)
-    {
-      if(!requirements[i]) return false;
-    }
-    return true;
-  }
-  
-  void fillReq1()
+  public void fulfill()
   {
     requirements[0] = true;
   }
   
-  void fillReq2()
+  public boolean fulfilled()
   {
-    requirements[1] = true;
+    return requirements[0];
   }
 }

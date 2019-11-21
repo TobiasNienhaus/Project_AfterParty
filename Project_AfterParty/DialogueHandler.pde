@@ -1,4 +1,7 @@
-
+interface DialogueCallbackReceiver
+{
+  public void OnDialogueEnd();
+}
 
 public class DialogueHandler
 {
@@ -31,10 +34,6 @@ public class DialogueHandler
   
   public boolean hasDialogue = false;
   
-  Dialogue test1;
-  Dialogue test2;
-  Dialogue test3;
-  
   public DialogueHandler()
   {
     loadDialogue();
@@ -63,11 +62,14 @@ public class DialogueHandler
     popMatrix();
   }
   
-  public boolean startDialogue(Dialogue d)
+  DialogueCallbackReceiver receiver;
+  
+  public boolean startDialogue(Dialogue d, DialogueCallbackReceiver r)
   {
     if(!(current == null || current.finished)) return false;
     current = d;
     hasDialogue = true;
+    receiver = r;
     return true;
   }
   
@@ -80,26 +82,42 @@ public class DialogueHandler
       hasDialogue = false;
       current.reset();
       current = null;
+      if(receiver != null) receiver.OnDialogueEnd();
+      receiver = null;
       return true;
     }
     return true;
   }
   
+  Dialogue char1;
+  Dialogue char1End;
+  
+  Dialogue hatPickup;
+  
+  Dialogue char2;
+  Dialogue char2End;
+  
   void loadDialogue()
   {
-    test1 = new Dialogue(new String[]{
-      "Test\nThis is a test",
-      "Test\nThis is the second line",
-      "Test\nThis is the third line"
+    char1 = new Dialogue(new String[]{
+      "This is a character",
+      "He talks a bit",
+      "Maybe a bit more"
     });
-    test2 = new Dialogue(new String[]{
-      "This is a second test\nOne",
-      "This is a second test\nTwo",
-      "This is a second test\nThree",
+    char1End = new Dialogue(new String[]{
+      "Thanks for getting back my stuff",
+      "I will leave now"
     });
-    test3 = new Dialogue(new String[]{
-      "WOW, a third test!",
-      "1", "2", "3", "4", "5", "6", "endless possibilities", "7", "9", "10"
+    hatPickup = new Dialogue(new String[]{
+      "That must be [witch]'s hat",
+      "Better get it back to her"
+    });
+    char2 = new Dialogue(new String[]{
+      "I lost my glasses.\nCan you find them for me?"
+    });
+    char2End = new Dialogue(new String[]{
+      "Oh you found my glasses!!",
+      "Thank you so much!"
     });
   }
 }

@@ -6,9 +6,7 @@ public abstract class Room
   {
     ItemType type;
     float x, y, w, h;
-    Rect rect;
-    
-    PImage img;
+    ImageRect rect;
     
     boolean found = false;
     
@@ -19,20 +17,18 @@ public abstract class Room
       this.w = w;
       this.h = h;
       this.type = type;
-      img = loadImage(imgPath);
-      rect = new Rect(x, y, w, h);
+      rect = new ImageRect(x, y, w, h, imgPath);
     }
     
     void display()
     {
       if(found) return;
-      rect.debugDisplay();
-      image(img, x, y, w, h);
+      rect.display();
     }
     
     boolean checkClick()
     {
-      if(found) return true;
+      if(found) return false;
       if(MouseInRect(rect))
       {
         if(!roomHandler.inv.AddItem(type)) return false;
@@ -67,31 +63,51 @@ public abstract class Room
   abstract boolean dropItem(Item item);
 }
 
-public class LivingRoom extends Room
+public class LivingRoom extends Room implements DialogueCallbackReceiver
 {
   Rect toKitchen;
-  Rect dialogueTest1;
+  
+  Rect char1;
+  boolean c1HasItem = false;
+  boolean c1InDialogue = false;
+  boolean c1IsFinished = false;
+  
+  Pickup p1, p2;
+  
+  HiddenItem glassesFrame;
   
   public LivingRoom()
   {
     super("Living Room", loadImage("livingroom.jpg"));
     toKitchen = new Rect(0, 0, width / 6f, height);
-    dialogueTest1 = new Rect(width/2f - 100, height/2f - 100, 200, 200);
+    
+    char1 = new ImageRect(400, 400, 200, 600, "ph/character.png");
+    p1 = new Pickup(400, 100, 40);
+    p2 = new Pickup(1800, 500, 50);
+    glassesFrame = new HiddenItem(800, 600, 50, 50, ItemType.GlassesFrame, "ph/glassesframe.png");
   }
   
   public void display()
   {
     super.display();
-    toKitchen.debugDisplay();
-    dialogueTest1.debugDisplay();
+    toKitchen.display();
+    if(!c1IsFinished) char1.display();
+    p1.display();
+    p2.display();
+    glassesFrame.display();
   }
   
   void handleMouseDown(int x, int y, MouseButton button)
   {
     if(MouseInRect(toKitchen))
       roomHandler.toKitchen();
-    if(MouseInRect(dialogueTest1))
-      roomHandler.dHandler.startDialogue(roomHandler.dHandler.test1);
+    if(!c1HasItem && MouseInRect(char1)) {
+      roomHandler.dHandler.startDialogue(roomHandler.dHandler.char1, null);
+      c1InDialogue = true;
+    }
+    p1.checkClick();
+    p2.checkClick();
+    if(glassesFrame.checkClick());
   }
   
   void handleKeyDown(Key k)
@@ -101,42 +117,70 @@ public class LivingRoom extends Room
   
   boolean dropItem(Item item)
   {
+    if(item.getType() == ItemType.Hat)
+    {
+      if(MouseInRect(char1))
+      {
+        c1HasItem = true;
+        c1InDialogue = true;
+        roomHandler.dHandler.startDialogue(roomHandler.dHandler.char1End,this);
+        roomHandler.tHandler.getHatTask().fulfill();
+        return true;
+      }
+    }
     return false;
+  }
+  
+  void OnDialogueEnd()
+  {
+    if(c1InDialogue) c1IsFinished = true;
   }
 }
 
-public class Kitchen extends Room
+public class Kitchen extends Room implements DialogueCallbackReceiver
 {
   Rect toLiving;
-  Rect dialogueTest2;
-  int dialogueCounter = 0;
+  
+  HiddenItem hat;
+  HiddenItem glassesNoFrame;
+  
+  Pickup p1;
+  
+  Rect char2;
+  boolean c2HasItem = false;
+  boolean c2InEndDialogue = false;
+  boolean c2IsFinished = false;
   
   public Kitchen()
   {
     super("Kitchen", loadImage("kitchen.jpg"));
     toLiving = new Rect(width-(width/6f), 0, width/6f, height);
-    dialogueTest2 = new Rect (width/4f-100, height/4f-100, 200,200);
+    hat = new HiddenItem(width*.6f, height*.5, 100, 100, ItemType.Hat, "ph/hat.png");
+    glassesNoFrame = new HiddenItem(1200, 700, 50, 50, ItemType.GlassesNoFrame, "ph/glassesnoframe.png");
+    p1 = new Pickup(250, 700, 45);
+    char2 = new ImageRect(200, 200, 200, 600, "ph/vampire.png");
   }
   
   public void display()
   {
     super.display();
-    toLiving.debugDisplay();
-    dialogueTest2.debugDisplay();
+    toLiving.display();
+    if(!c2IsFinished) char2.display();
+    hat.display();
+    p1.display();
+    glassesNoFrame.display();
   }
   
   void handleMouseDown(int x, int y, MouseButton button)
   {
     if(MouseInRect(toLiving))
       roomHandler.toLiving();
-    if(MouseInRect(dialogueTest2))
-    {
-      if(dialogueCounter <= 0)
-        roomHandler.dHandler.startDialogue(roomHandler.dHandler.test2);
-      else if(dialogueCounter == 1)
-        roomHandler.dHandler.startDialogue(roomHandler.dHandler.test3);
-      dialogueCounter += dialogueCounter <= 0 ? 1 : 0;
-    }
+    if(hat.checkClick())
+      roomHandler.dHandler.startDialogue(roomHandler.dHandler.hatPickup, this);
+    if(!c2HasItem && MouseInRect(char2))
+      roomHandler.dHandler.startDialogue(roomHandler.dHandler.char2, this);
+    p1.checkClick();
+    if(glassesNoFrame.checkClick());
   }
   
   void handleKeyDown(Key k)
@@ -146,6 +190,22 @@ public class Kitchen extends Room
   
   boolean dropItem(Item item)
   {
+    if(item.getType() == ItemType.GlassesComplete)
+    {
+      if(MouseInRect(char2))
+      {
+        c2HasItem = true;
+        c2InEndDialogue = true;
+        roomHandler.dHandler.startDialogue(roomHandler.dHandler.char2End,this);
+        roomHandler.tHandler.getGlassesTask().fulfill();
+        return true;
+      }
+    }
     return false;
+  }
+  
+  void OnDialogueEnd()
+  {
+    if(c2InEndDialogue) c2IsFinished = true;
   }
 }

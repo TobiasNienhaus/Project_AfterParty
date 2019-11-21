@@ -19,7 +19,7 @@ public class Inventory
     // display everything
     void display()
     {
-      rect.debugDisplay();
+      rect.display();
       item.display();
     }
     
@@ -63,11 +63,7 @@ public class Inventory
       float yPos = height-rectSize-rectSpace;
       
       // fill inventory with items
-      Item item = random(1f) < 0.5f ? 
-        new TestItem1(xPos, yPos, rectSize, rectSize) :
-        new TestItem2(xPos, yPos, rectSize, rectSize);
-      if(i > int(items.length/2f))
-        item = new EmptyItem();
+      Item item = new EmptyItem();
       // create rect for each inventory slot
       Rect r = new Rect(xPos, yPos, rectSize, rectSize);
       // create new InventoryItems
@@ -265,11 +261,12 @@ public class Inventory
     pushMatrix();
     textSize(64);
     textAlign(LEFT, TOP);
-    text("Bottles: " + bottleCount, 25, 25);
+    text("Bottles: " + bottleCount + "/" + maxBottleCount, 25, 25);
     popMatrix();
   }
   
   int bottleCount = 0;
+  int maxBottleCount = 3;
   
   void collectBottle()
   {
