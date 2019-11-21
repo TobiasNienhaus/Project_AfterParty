@@ -5,19 +5,19 @@ interface DialogueCallbackReceiver
 
 public class DialogueHandler
 {
-  class Dialogue
+  public class Dialogue
   {
     String[] lines;
     int currentLine;
     boolean finished = false;
     
-    Dialogue(String[] lines)
+    public Dialogue(String[] lines)
     {
       this.lines = lines;
       currentLine = 0;
     }
     
-    String getLine()
+    public String getLine()
     {
       if(finished) return "Error";
       if(currentLine >= lines.length || currentLine < 0)
@@ -28,9 +28,11 @@ public class DialogueHandler
       return lines[currentLine];
     }
     
-    void next() { currentLine++; if(currentLine >= lines.length) finished = true; }
-    void reset() { currentLine = 0; finished = false; }
+    public void next() { currentLine++; if(currentLine >= lines.length) finished = true; }
+    public void reset() { currentLine = 0; finished = false; }
   }
+  
+  public Dialogue createDialogue(String[] text) { return new Dialogue(text); }
   
   public boolean hasDialogue = false;
   

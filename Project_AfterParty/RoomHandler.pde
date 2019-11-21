@@ -10,6 +10,8 @@ public class RoomHandler
   TaskHandler tHandler;
   DialogueHandler dHandler;
   
+  Timer t;
+  
   public void initRooms()
   {
     inv = new Inventory();
@@ -20,6 +22,7 @@ public class RoomHandler
     living = new LivingRoom();
     
     active = living;
+    t = new Timer();
   }
   
   public void toKitchen()
@@ -34,10 +37,12 @@ public class RoomHandler
   
   void display()
   {
+    t.step();
     active.display();
     inv.display();
     tHandler.display();
     dHandler.display();
+    t.display();
   }
   
   void handleKeyPress()

@@ -5,6 +5,8 @@ RoomHandler roomHandler;
 PImage hand_selected;
 PImage hand_closed;
 
+
+
 void setup()
 {
   fullScreen(FX2D);
@@ -18,7 +20,7 @@ void draw()
 {
   background(0);
   cursor(hand_closed);
-  if(!canClose())
+  if(!canClose()) 
     roomHandler.display();
   else
   {

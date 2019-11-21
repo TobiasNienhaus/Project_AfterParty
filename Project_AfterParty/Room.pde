@@ -67,10 +67,7 @@ public class LivingRoom extends Room implements DialogueCallbackReceiver
 {
   Rect toKitchen;
   
-  Rect char1;
-  boolean c1HasItem = false;
-  boolean c1InDialogue = false;
-  boolean c1IsFinished = false;
+  Guest c;
   
   Pickup p1, p2;
   
@@ -81,7 +78,7 @@ public class LivingRoom extends Room implements DialogueCallbackReceiver
     super("Living Room", loadImage("livingroom.jpg"));
     toKitchen = new Rect(0, 0, width / 6f, height);
     
-    char1 = new ImageRect(400, 400, 200, 600, "ph/character.png");
+    c = new WitchTest(400, 400, 200, 600);
     p1 = new Pickup(400, 100, 40);
     p2 = new Pickup(1800, 500, 50);
     glassesFrame = new HiddenItem(800, 600, 50, 50, ItemType.GlassesFrame, "ph/glassesframe.png");
@@ -91,9 +88,9 @@ public class LivingRoom extends Room implements DialogueCallbackReceiver
   {
     super.display();
     toKitchen.display();
-    if(!c1IsFinished) char1.display();
     p1.display();
     p2.display();
+    c.display();
     glassesFrame.display();
   }
   
@@ -101,10 +98,7 @@ public class LivingRoom extends Room implements DialogueCallbackReceiver
   {
     if(MouseInRect(toKitchen))
       roomHandler.toKitchen();
-    if(!c1HasItem && MouseInRect(char1)) {
-      roomHandler.dHandler.startDialogue(roomHandler.dHandler.char1, null);
-      c1InDialogue = true;
-    }
+    if(c.checkClick());
     p1.checkClick();
     p2.checkClick();
     if(glassesFrame.checkClick());
@@ -117,23 +111,13 @@ public class LivingRoom extends Room implements DialogueCallbackReceiver
   
   boolean dropItem(Item item)
   {
-    if(item.getType() == ItemType.Hat)
-    {
-      if(MouseInRect(char1))
-      {
-        c1HasItem = true;
-        c1InDialogue = true;
-        roomHandler.dHandler.startDialogue(roomHandler.dHandler.char1End,this);
-        roomHandler.tHandler.getHatTask().fulfill();
-        return true;
-      }
-    }
+    if(c.dropItem(item)) return true;
     return false;
   }
   
   void OnDialogueEnd()
   {
-    if(c1InDialogue) c1IsFinished = true;
+    
   }
 }
 
@@ -146,10 +130,7 @@ public class Kitchen extends Room implements DialogueCallbackReceiver
   
   Pickup p1;
   
-  Rect char2;
-  boolean c2HasItem = false;
-  boolean c2InEndDialogue = false;
-  boolean c2IsFinished = false;
+  Guest c;
   
   public Kitchen()
   {
@@ -157,17 +138,17 @@ public class Kitchen extends Room implements DialogueCallbackReceiver
     toLiving = new Rect(width-(width/6f), 0, width/6f, height);
     hat = new HiddenItem(width*.6f, height*.5, 100, 100, ItemType.Hat, "ph/hat.png");
     glassesNoFrame = new HiddenItem(1200, 700, 50, 50, ItemType.GlassesNoFrame, "ph/glassesnoframe.png");
-    p1 = new Pickup(250, 700, 45);
-    char2 = new ImageRect(200, 200, 200, 600, "ph/vampire.png");
+    p1 = new Pickup(450, 700, 45);
+    c = new VampireTest(200, 200, 200, 600);
   }
   
   public void display()
   {
     super.display();
     toLiving.display();
-    if(!c2IsFinished) char2.display();
     hat.display();
     p1.display();
+    c.display();
     glassesNoFrame.display();
   }
   
@@ -177,8 +158,7 @@ public class Kitchen extends Room implements DialogueCallbackReceiver
       roomHandler.toLiving();
     if(hat.checkClick())
       roomHandler.dHandler.startDialogue(roomHandler.dHandler.hatPickup, this);
-    if(!c2HasItem && MouseInRect(char2))
-      roomHandler.dHandler.startDialogue(roomHandler.dHandler.char2, this);
+    c.checkClick();
     p1.checkClick();
     if(glassesNoFrame.checkClick());
   }
@@ -190,22 +170,12 @@ public class Kitchen extends Room implements DialogueCallbackReceiver
   
   boolean dropItem(Item item)
   {
-    if(item.getType() == ItemType.GlassesComplete)
-    {
-      if(MouseInRect(char2))
-      {
-        c2HasItem = true;
-        c2InEndDialogue = true;
-        roomHandler.dHandler.startDialogue(roomHandler.dHandler.char2End,this);
-        roomHandler.tHandler.getGlassesTask().fulfill();
-        return true;
-      }
-    }
+    if(c.dropItem(item)) return true;
     return false;
   }
   
   void OnDialogueEnd()
   {
-    if(c2InEndDialogue) c2IsFinished = true;
+    //if(c2InEndDialogue) c2IsFinished = true;
   }
 }
