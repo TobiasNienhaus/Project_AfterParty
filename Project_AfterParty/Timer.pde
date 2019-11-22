@@ -1,12 +1,22 @@
 
 public class Timer
 {
-  int time = int(5.5 * 60 * 1000 + 10 * 1000);
+  int time = int(5 * 60 * 1000 + 0 * 1000);
   int oldMillis = 0;
   boolean block = false;
 
   public Timer()
   {
+  }
+  
+  public Timer(int time)
+  {
+    this.time = time;
+  }
+  
+  public Timer(float min, float sec)
+  {
+    this.time = int(min * 60 + sec * 1000);
   }
   
   public void step()
