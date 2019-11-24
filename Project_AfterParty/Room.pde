@@ -121,7 +121,7 @@ public class LivingRoom extends Room implements DialogueCallbackReceiver
   }
 }
 
-public class Kitchen extends Room implements DialogueCallbackReceiver
+public class KitchenOld extends Room implements DialogueCallbackReceiver
 {
   Rect toLiving;
   
@@ -132,7 +132,7 @@ public class Kitchen extends Room implements DialogueCallbackReceiver
   
   Guest c;
   
-  public Kitchen()
+  public KitchenOld()
   {
     super("Kitchen", loadImage("kitchen.jpg"));
     toLiving = new Rect(width-(width/6f), 0, width/6f, height);
@@ -177,5 +177,38 @@ public class Kitchen extends Room implements DialogueCallbackReceiver
   void OnDialogueEnd()
   {
     //if(c2InEndDialogue) c2IsFinished = true;
+  }
+}
+
+public class Kitchen extends Room implements DialogueCallbackReceiver
+{ 
+  public Kitchen()
+  {
+    super("Kitchen", loadImage("kitchen.jpg"));
+  }
+  
+  public void display()
+  {
+    super.display();
+  }
+  
+  void handleMouseDown(int x, int y, MouseButton button)
+  {
+    
+  }
+  
+  void handleKeyDown(Key k)
+  {
+    
+  }
+  
+  boolean dropItem(Item item)
+  {
+    return false;
+  }
+  
+  void OnDialogueEnd()
+  {
+    
   }
 }

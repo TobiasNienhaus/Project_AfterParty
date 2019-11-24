@@ -1,0 +1,40 @@
+Rooms
+    Living Room
+    Bathroom
+    Bedroom
+    Hall
+    Kitchen
+
+Items
+    Item                    Filename                    ratio
+    -----------------------------------------------------------------
+    Vase                    vase.png                    7x16
+    Tap                     tap.png                     1x1
+    Fish Bowl
+        With Remote         fishbowl_remote.png         1x1
+        Without Remote      fishbowl_empty.png          1x1
+    Remote
+        Wet                 remote_wet.png              1x1
+        Dry                 remote_dry.png              1x1
+        With Batteries      remote_complete.png         1x1
+    Hair Dryer              hairdryer.png               1x1
+    Batteries               batteries.png               1x1
+    Kitchen Drawer          drawer.png                  7x5
+    Mop                     mop.png                     1x4
+    Closet
+        Closed              closet_closed.png           4x5
+        Open                closet_open.png             4x5
+    Bottle                  bottle.png                  1x2
+    Lamp
+        Broken              lamp_broken.png             1x1
+        Fixed               lamp_fixed.png              1x1
+    Light Bulb              lightbulb.png               1x1
+    Kitchen cabinet
+        Closed              cabinet_closed.png          1x1
+        Open                cabinet_open.png            1x1
+    coffee machine
+        Empty               coffeemachine_empty.png     1x1
+        Beans               coffeemachine_beans.png     1x1
+    beans                   beans.png                   1x1
+    cupboard                cupboard.png                1x1
+    (cup of coffee)
