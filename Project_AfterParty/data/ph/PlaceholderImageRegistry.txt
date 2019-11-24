@@ -6,7 +6,7 @@ Rooms
     Kitchen
 
 Items
-    Item                    Filename                    ratio
+    Item                    Filename                    aspect ratio
     -----------------------------------------------------------------
     Vase                    vase.png                    7x16
     Tap                     tap.png                     1x1
@@ -38,3 +38,13 @@ Items
     beans                   beans.png                   1x1
     cupboard                cupboard.png                1x1
     (cup of coffee)
+    (witch) hat             hat.png                     1x1
+    golden badge            badge.png                   1x1
+    cross necklace          necklace.png                1x1
+
+Characters
+    Character               Filename                    aspect ratio
+    Wendy (Witch)           wendy.png                   3x8
+    Max (Cowboy)            max.png                     3x8
+    Mike (Zombie)           mike.png                    3x8
+    Sarah (Nun)             sarah.png
