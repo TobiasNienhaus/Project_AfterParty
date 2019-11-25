@@ -20,7 +20,10 @@ Items
     coffee machine
         Empty               coffeemachine_empty.png     1x1
         Beans               coffeemachine_beans.png     1x1
+    cup                     cup.png                     1x1
     cupboard                cupboard.png                1x1
+        Open                cupboard_open.png           1x1
+        Closed              cupboard_closed.png         1x1
     Fish Bowl
         With Remote         fishbowl_remote.png         1x1
         Without Remote      fishbowl_empty.png          1x1
@@ -51,6 +54,7 @@ Other
     Door                    door.png                    2x3
     Staircase               staircase.png               4x3
     Vase Spot               vase_spot.png               1x1
+    dirt                    dirt.png                    3x2
 
 Characters
     Character               Filename                    aspect ratio
@@ -68,6 +72,7 @@ Bottle                      Everywhere
 Closet                      Hall
 Coffee machine              Kitchen
 cross necklace              somewhere
+cup                         cabinet (kitchen)
 cupboard                    kitchen
 Fish Bowl                   Living Room
 golden badge                somewhere

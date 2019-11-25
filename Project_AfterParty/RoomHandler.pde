@@ -29,7 +29,7 @@ public class RoomHandler
     bath = new Bathroom();
     bedroom = new Bedroom();
     
-    active = bedroom;
+    active = living;
     t = new Timer();
   }
   

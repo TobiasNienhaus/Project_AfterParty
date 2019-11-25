@@ -71,6 +71,9 @@ public class LivingRoom extends Room implements DialogueCallbackReceiver
   Rect fishbowl_empty;
   boolean hasRemote = false;
   
+  Rect dirt;
+  boolean clean = false;
+  
   public LivingRoom()
   {
     super("Living Room", loadImage("livingroom.jpg"));
@@ -78,6 +81,8 @@ public class LivingRoom extends Room implements DialogueCallbackReceiver
     staircase = new ImageRect(100, 100, 1000, 500, folder + "staircase.png");
     fishbowl_remote = new ImageRect(1250, 500, 150, 150, folder + "fishbowl_remote.png");
     fishbowl_empty = new ImageRect(1250, 500, 150, 150, folder + "fishbowl_empty.png", false);
+    
+    dirt = new ImageRect(150, 700, 750, 500, folder + "dirt.png");
   }
   
   public void display()
@@ -87,6 +92,7 @@ public class LivingRoom extends Room implements DialogueCallbackReceiver
     staircase.display();
     if(!hasRemote) fishbowl_remote.display();
     else fishbowl_empty.display();
+    if(!clean) dirt.display();
   }
   
   void handleMouseDown(int x, int y, MouseButton button)
@@ -98,6 +104,7 @@ public class LivingRoom extends Room implements DialogueCallbackReceiver
     if(!hasRemote && MouseInRect(fishbowl_remote))
     {
       hasRemote = true;
+      roomHandler.dHandler.startDialogue(dialogues.remoteDiscover,this);
       roomHandler.inv.AddItem(ItemType.RemoteWet);
     }
   }
@@ -109,6 +116,13 @@ public class LivingRoom extends Room implements DialogueCallbackReceiver
   
   boolean dropItem(Item item)
   {
+    if(item.getType() == ItemType.Mop)
+    {
+      clean = true;
+      roomHandler.tHandler.finishTask();
+      roomHandler.dHandler.startDialogue(dialogues.mopLiving,this);
+      return true;
+    }
     return false;
   }
   
@@ -123,11 +137,18 @@ public class Kitchen extends Room implements DialogueCallbackReceiver
   Rect door;
   
   Rect cupboard;
+  boolean cupboardIsOpen = false;
+  Rect cupboardOpen;
   Rect cabinet;
+  boolean cabinetIsOpen = false;
+  Rect cabinetOpen;
   Rect drawer;
   Rect emptyDrawer;
   Rect tap;
   Rect coffeemachine;
+  boolean coffeeHasBeans = false;
+  boolean hasCoffee = false;
+  Rect coffeemachineBeans;
   
   boolean hasBatteries;
   
@@ -136,35 +157,53 @@ public class Kitchen extends Room implements DialogueCallbackReceiver
     super("Kitchen", loadImage("kitchen.jpg"));
     door = new ImageRect(100, 400, 300, 500, folder + "door.png");
     
-    cupboard = new ImageRect(500, 600, 200, 200, folder + "cupboard.png");
+    cupboard = new ImageRect(500, 600, 200, 200, folder + "cupboard_closed.png");
+    cupboardOpen = new ImageRect(500, 600, 200, 200, folder + "cupboard_open.png", false);
     cabinet = new ImageRect(550, 100, 300, 300, folder + "cabinet_closed.png");
+    cabinetOpen = new ImageRect(550, 100, 300, 300, folder + "cabinet_open.png");
     drawer = new ImageRect(800, 600, 140, 100, folder + "drawer_full.png");
     emptyDrawer = new ImageRect(800, 600, 140, 100, folder + "drawer_empty.png", false);
     tap = new ImageRect(1200, 450, 100, 100, folder + "tap.png");
     coffeemachine = new ImageRect(1500, 350, 200, 200, folder + "coffeemachine_empty.png");
+    coffeemachineBeans = new ImageRect(1500, 350, 200, 200, folder + "coffeemachine_beans.png");
   }
   
   public void display()
   {
     super.display();
     door.display();
-    cupboard.display();
-    cabinet.display();
+    if(!cupboardIsOpen) cupboard.display();
+    else cupboardOpen.display();
+    if(!cabinetIsOpen) cabinet.display();
+    else cabinetOpen.display();
     if(!hasBatteries) drawer.display();
     else emptyDrawer.display();
     tap.display();
-    coffeemachine.display();
+    if(!coffeeHasBeans || hasCoffee) coffeemachine.display();
+    else coffeemachineBeans.display();
   }
   
   void handleMouseDown(int x, int y, MouseButton button)
   {
     if(MouseInRect(door))
       roomHandler.toLiving();
+    if(!cupboardIsOpen && MouseInRect(cupboard))
+    {
+      cupboardIsOpen = true;
+      roomHandler.inv.AddItem(ItemType.Beans);
+    }
+    if(!cabinetIsOpen && MouseInRect(cabinet))
+    {
+      cabinetIsOpen = true;
+      roomHandler.inv.AddItem(ItemType.Cup);
+    }
     if(!hasBatteries && MouseInRect(emptyDrawer))
     {
       hasBatteries = true;
       roomHandler.inv.AddItem(ItemType.Batteries);
-    } 
+    }
+    if(!hasCoffee && MouseInRect(coffeemachine))
+      roomHandler.dHandler.startDialogue(dialogues.hangoverCureNeeded,this);
   }
   
   void handleKeyDown(Key k)
@@ -179,6 +218,24 @@ public class Kitchen extends Room implements DialogueCallbackReceiver
       roomHandler.dHandler.startDialogue(dialogues.vaseFillup,this);
       return true;
     }
+    if(!coffeeHasBeans && item.getType() == ItemType.Beans && MouseInRect(coffeemachine))
+    {
+      coffeeHasBeans = true;
+      roomHandler.dHandler.startDialogue(dialogues.hangoverBeans,this);
+      return true;
+    }
+    if(coffeeHasBeans && !hasCoffee
+      && item.getType() == ItemType.Cup && MouseInRect(coffeemachineBeans))
+    {
+      hasCoffee = true;
+      ((ImageRect)coffeemachine).changeCursor = false;
+      roomHandler.dHandler.startDialogue(dialogues.hangoverCure, this);
+      roomHandler.tHandler.finishTask();
+      return true;
+    }
+    if(!coffeeHasBeans && !hasCoffee
+      && item.getType() == ItemType.Cup && MouseInRect(coffeemachineBeans))
+      roomHandler.dHandler.startDialogue(dialogues.hangoverCupBeforeBeans, this);
     return false;
   }
   
@@ -194,6 +251,8 @@ class Hall extends Room implements DialogueCallbackReceiver
   Rect doorBath;
   Rect staircase;
   Rect closet;
+  boolean closetOpen = false;
+  Rect closetOpened;
   
   public Hall()
   {
@@ -202,6 +261,7 @@ class Hall extends Room implements DialogueCallbackReceiver
     doorBath = new ImageRect(width - 400, 400, 300, 500, folder + "door.png");
     staircase = new ImageRect(450, 200, 500, 300, folder + "staircase.png");
     closet = new ImageRect(1000, 200, 400, 500, folder + "closet_closed.png");
+    closetOpened = new ImageRect(1000, 200, 400, 500, folder + "closet_open.png");
   }
   
   public void display()
@@ -210,7 +270,8 @@ class Hall extends Room implements DialogueCallbackReceiver
     doorBed.display();
     doorBath.display();
     staircase.display();
-    closet.display();
+    if(!closetOpen) closet.display();
+    else closetOpened.display();
   }
   
   void handleMouseDown(int x, int y, MouseButton button)
@@ -221,6 +282,11 @@ class Hall extends Room implements DialogueCallbackReceiver
       roomHandler.toBath();
     if(MouseInRect(staircase))
       roomHandler.toLiving();
+    if(!closetOpen && MouseInRect(closet))
+    {
+      closetOpen = true;
+      roomHandler.inv.AddItem(ItemType.Mop);
+    }
   }
   
   void handleKeyDown(Key k)

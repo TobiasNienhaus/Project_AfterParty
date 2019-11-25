@@ -6,7 +6,7 @@ public class TaskHandler
   
   public TaskHandler()
   {
-    tasks = new boolean[3];
+    tasks = new boolean[4];
     for(int i = 0; i < tasks.length; i++)
       tasks[i] = false;
   }
@@ -24,7 +24,7 @@ public class TaskHandler
   
   void finishTask()
   {
-    if(lastFinishedIndex + 1 < tasks.length)
+    if(lastFinishedIndex < tasks.length)
     {
       tasks[lastFinishedIndex] = true;
       lastFinishedIndex++;

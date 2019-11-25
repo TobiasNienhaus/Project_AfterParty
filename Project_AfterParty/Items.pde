@@ -4,7 +4,8 @@ enum ItemType
   Batteries, Beans, Necklace,
   Badge, Hairdryer, Bulb,
   Mop, RemoteWet, RemoteDry,
-  RemoteComplete, Tap, VaseEmpty, VaseFull
+  RemoteComplete, Tap, VaseEmpty,
+  VaseFull, Cup
 }
 
 void printItemType(ItemType type)
@@ -59,6 +60,9 @@ void printItemType(ItemType type)
   case VaseFull:
     println("Vase full");
     break;
+  case Cup:
+    println("Cup");
+    break;
   default:
     println("default");
     break;
@@ -105,6 +109,8 @@ Item createItemFromType(ItemType type)
     return new VaseEmptyItem(0f, 0f, 0f, 0f);
   case VaseFull:
     return new VaseFullItem(0f, 0f, 0f, 0f);
+  case Cup:
+    return new CupItem(0f, 0f, 0f, 0f);
   case Empty:
     return new EmptyItem();
   case Error:
@@ -203,8 +209,11 @@ public class BatteriesItem extends Item
     if(other.getType() == ItemType.RemoteDry)
     {
       roomHandler.tHandler.finishTask();
+      roomHandler.dHandler.startDialogue(dialogues.remoteBatteries,null);
       return new RemoteCompleteItem(x, y, w, h);
     }
+    if(other.getType() == ItemType.RemoteWet)
+      roomHandler.dHandler.startDialogue(dialogues.remoteWrongCombine,null);
     return new ErrorItem();
   }
 }
@@ -272,6 +281,7 @@ public class HairdryerItem extends Item
     if(other.getType() == ItemType.RemoteWet)
     {
       roomHandler.driedRemote = true;
+      roomHandler.dHandler.startDialogue(dialogues.remoteDrying,null);
       return new RemoteDryItem(x, y, w, h);
     }
     return new ErrorItem();
@@ -324,9 +334,12 @@ public class RemoteWetItem extends Item
   {
     if(other.getType() == ItemType.Hairdryer)
     {
+      roomHandler.dHandler.startDialogue(dialogues.remoteDrying,null);
       roomHandler.driedRemote = true;
       return new RemoteDryItem(x, y, w, h);
     }
+    if(other.getType() == ItemType.Batteries)
+      roomHandler.dHandler.startDialogue(dialogues.remoteWrongCombine,null);
     return new ErrorItem();
   }
 }
@@ -346,6 +359,7 @@ public class RemoteDryItem extends Item
     if(other.getType() == ItemType.Batteries)
     {
       roomHandler.tHandler.finishTask();
+      roomHandler.dHandler.startDialogue(dialogues.remoteBatteries,null);
       return new RemoteCompleteItem(x, y, w, h);
     }
     return new ErrorItem();
@@ -409,6 +423,22 @@ public class VaseFullItem extends Item
   }
   
   public ItemType getType() { return ItemType.VaseFull; }
+  
+  public Item Combine(Item other)
+  {
+    return new ErrorItem();
+  }
+}
+
+//Cup
+public class CupItem extends Item
+{
+  public CupItem(float x, float y, float w, float h)
+  {
+    super(x, y, w, h, folder + "cup.png");
+  }
+  
+  public ItemType getType() { return ItemType.Cup; }
   
   public Item Combine(Item other)
   {

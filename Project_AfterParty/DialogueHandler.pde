@@ -102,6 +102,18 @@ public class DialogueHandler
     Dialogue vasePickup;
     Dialogue vaseFillup;
     
+    Dialogue remoteDiscover;
+    Dialogue remoteDrying;
+    Dialogue remoteWrongCombine;
+    Dialogue remoteBatteries;
+    
+    Dialogue mopLiving;
+    
+    Dialogue hangoverCureNeeded;
+    Dialogue hangoverBeans;
+    Dialogue hangoverCupBeforeBeans;
+    Dialogue hangoverCure;
+    
     public DialogueContainer()
     {
       vasePickup = createDialogue(new String[]{
@@ -109,6 +121,27 @@ public class DialogueHandler
         "If I place it back now they're going to notice"
       });
       vaseFillup = createDialogue("Now I can place it back");
+      
+      remoteDiscover = createDialogue(new String[]{
+        "The remote is wet and the batteries no longer work.",
+        "I'll have to fix this."
+      });
+      remoteDrying = createDialogue("It's dry now, but the batteries still don't work");
+      remoteWrongCombine = createDialogue("Probably not a good idea to add batteries if it's still wet.");
+      remoteBatteries = createDialogue("Alright, that's done!");
+      
+      mopLiving = createDialogue("Finally, clean.");
+      
+      hangoverCureNeeded = createDialogue(new String[]{
+        "I feel terrible after that party.",
+        "I'm going to need some coffee if I don't want my parents noticing."
+      });
+      hangoverBeans = createDialogue("All ready, just the cup.");
+      hangoverCupBeforeBeans = createDialogue(new String[]{
+        "I don't want water with a vague hint of coffee, I want coffee.",
+        "I should get some beans first."
+      });
+      hangoverCure = createDialogue("Ahh, coffee.");
     }
   }
 }

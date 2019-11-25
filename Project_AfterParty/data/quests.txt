@@ -1,0 +1,58 @@
+story
+	the parents went away to stay over at a relative's house for a halloween movie night, so you decided to have a party while they were away.
+	The party quickly got out of hand. People got drunk and started to make a mess of things. Everyone's stuff is all over the place and many things broke or fell over.
+	Now your mom called and told you she's five minutes away from home, and you still need to get everyone out and clean everything up. Ohh shit
+
+
+
+
+Rooms
+	living room
+	bathroom
+	bedroom
+	hall
+	Kitchen
+
+
+
+
+Quests
+	put a vase upright
+		In the bedroom there is a VASE that has fallen over, take it to the kitchen or bathroom to refill it with water from the tap and put it back in it's place.
+			Upon collecting the vase: "There's no water in this vase, if I place it back now they're going to notice"
+			Upon filling the vase with water: "Now I can place it back"
+	
+	Fix the remote
+		the FISH BOWL with the REMOTE is in the living room, you use the HAIR DRYER in the bathroom to dry it, and you get new BATTERIES for the REMOTE in a KITCHEN DRAWER.
+			upon retrieving the remote from the fish bowl: "The remote is wet and the batteries no longer work, I'll have to fix this."
+			Upon drying the remote: "It's dry now, but the batteries still don't work"
+			Upon attempting to put batteries in the wet remote: "Probably not a good idea to add batteries if it's still wet.
+			Upon putting batteries into the dry remote: "Alright, that's done!"
+	
+	mop the floor
+		get a MOP from A CLOSET in the hall and clean the living room.
+			Upon cleaning the living room: "Finally, clean."
+	
+	collect bottles to throw away
+		there are many BOTTLES of booze laying around the house, collect them all and throw them away.
+			Upon picking up the first bottle: "Ohh god, how many of these things are there?"
+			Upon picking up the second bottle: "Well, that's two."
+			Upon picking up the third bottle: "three now."
+			Upon picking up fourth bottle: "four"
+			Upon picking up fifth bottle "and that's five"
+			Upon picking up sixth bottle: "Looks like that's all of them."
+	
+	change broken light bulb
+		get rid of the broken light bulb in a LAMP on the NIGHT STAND in the bedroom and replace it with a NEW LIGHT BULB you can get in a KITCHEN KABINET.
+			Upon first clicking the lamp: "Ohh no, is that broken too?"
+			Upon finding the light bulb: "Yes, I can fix the lamp!"
+			Upon fixing the lamp with the light bulb: "Aand it's fixed."
+	
+	
+	Get over your hangover
+		Turn on the COFFEE MACHINE in the kitchen, add BEANS from a CUPBOARD and make yourself a nice CUP OF COFFEE to get over your hangover
+			Upon clicking the coffee machine: "I feel terrible after that party, I'm going to need some coffee if I don't want my parents noticing."
+			Upon adding beans: "All ready, just the cup."
+			Upon attempting to use the cup before the beans: "I don't want water with a vague hint of coffee, I want coffee. I should get some beans first."
+			Upon using the cup after putting in beans: "Ahh, coffee."
+			
