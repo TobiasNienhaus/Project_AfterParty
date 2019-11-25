@@ -3,6 +3,9 @@ public class RoomHandler
 {
   Room kitchen;
   Room living;
+  Room hall;
+  Room bath;
+  Room bedroom;
   
   Room active;
   
@@ -12,6 +15,8 @@ public class RoomHandler
   
   Timer t;
   
+  boolean driedRemote = false;
+  
   public void initRooms()
   {
     inv = new Inventory();
@@ -20,8 +25,11 @@ public class RoomHandler
     
     kitchen = new Kitchen();
     living = new LivingRoom();
+    hall = new Hall();
+    bath = new Bathroom();
+    bedroom = new Bedroom();
     
-    active = living;
+    active = bedroom;
     t = new Timer();
   }
   
@@ -33,6 +41,21 @@ public class RoomHandler
   public void toLiving()
   {
     active = living;
+  }
+  
+  public void toBath()
+  {
+    active = bath;
+  }
+  
+  public void toBedroom()
+  {
+    active = bedroom;
+  }
+  
+  public void toHall()
+  {
+    active = hall;
   }
   
   void display()

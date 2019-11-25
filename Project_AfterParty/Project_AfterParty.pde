@@ -8,11 +8,12 @@ import ddf.minim.ugens.*;
 import processing.sound.*;
 
 RoomHandler roomHandler;
+DialogueHandler.DialogueContainer dialogues;
 
 PImage hand_selected;
 PImage hand_closed;
 
-
+public String folder = "ph/";
 
 void setup()
 {
@@ -21,6 +22,7 @@ void setup()
   hand_closed = loadImage("final/hand_closed.png");
   roomHandler = new RoomHandler();
   roomHandler.initRooms();
+  dialogues = roomHandler.dHandler.createContainer();
 }
 
 void draw()

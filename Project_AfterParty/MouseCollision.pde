@@ -57,21 +57,39 @@ public class Rect
 public class ImageRect extends Rect
 {
   PImage img;
+  boolean changeCursor;
+  
   public ImageRect(float x, float y, float w , float h, PImage img)
   {
     super(x, y, w, h);
     this.img = img;
+    changeCursor = true;
   }
   
   public ImageRect(float x, float y, float w, float h, String imgPath)
   {
     super(x, y, w, h);
     img = loadImage(imgPath);
+    changeCursor = true;
+  }
+  
+  public ImageRect(float x, float y, float w , float h, PImage img, boolean changeCursor)
+  {
+    super(x, y, w, h);
+    this.img = img;
+    this.changeCursor = changeCursor;
+  }
+  
+  public ImageRect(float x, float y, float w, float h, String imgPath, boolean changeCursor)
+  {
+    super(x, y, w, h);
+    img = loadImage(imgPath);
+    this.changeCursor = changeCursor;
   }
   
   void display()
   {
-    if(MouseInRect(this)) cursor(hand_selected);
+    if(changeCursor && MouseInRect(this)) cursor(hand_selected);
     image(img, x, y, w,h);
   }
 }

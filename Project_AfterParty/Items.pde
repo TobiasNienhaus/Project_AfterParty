@@ -1,21 +1,16 @@
 enum ItemType
 {
-  Test1, Test2, Test3, Empty, Error, Hat, GlassesNoFrame, GlassesFrame, GlassesComplete
+  Empty, Error, Hat,
+  Batteries, Beans, Necklace,
+  Badge, Hairdryer, Bulb,
+  Mop, RemoteWet, RemoteDry,
+  RemoteComplete, Tap, VaseEmpty, VaseFull
 }
 
 void printItemType(ItemType type)
 {
   switch(type)
   {
-  case Test1:
-    println("Test1");
-    break;
-  case Test2:
-    println("Test2");
-    break;
-  case Test3:
-    println("Test3");
-    break;
   case Empty:
     println("Empty");
     break;
@@ -25,14 +20,44 @@ void printItemType(ItemType type)
   case Hat:
     println("Hat");
     break;
-  case GlassesNoFrame:
-    println("GlassesNoFrame");
+  case Batteries:
+    println("Batteries");
     break;
-  case GlassesFrame:
-    println("GlassesFrame");
+  case Beans:
+    println("Beans");
     break;
-  case GlassesComplete:
-    println("GlassesComplete");
+  case Necklace:
+    println("Necklace");
+    break;
+  case Badge:
+    println("Badge");
+    break;
+  case Hairdryer:
+    println("Hairdryer");
+    break;
+  case Bulb:
+    println("Bulb");
+    break;
+  case Mop:
+    println("Mop");
+    break;
+  case RemoteWet:
+    println("Remote Wet");
+    break;
+  case RemoteDry:
+    println("Remote Dry");
+    break;
+  case RemoteComplete:
+    println("Remote Complete");
+    break;
+  case Tap:
+    println("Tap");
+    break;
+  case VaseEmpty:
+    println("Vase empty");
+    break;
+  case VaseFull:
+    println("Vase full");
     break;
   default:
     println("default");
@@ -52,20 +77,34 @@ Item createItemFromType(ItemType type)
 {
   switch(type)
   {
-  case Test1:
-    return new TestItem1(0f, 0f, 0f, 0f);
-  case Test2:
-    return new TestItem2(0f, 0f, 0f, 0f);
-  case Test3:
-    return new TestItem3(0f, 0f, 0f, 0f);
   case Hat:
     return new HatItem(0f, 0f, 0f, 0f);
-  case GlassesNoFrame:
-    return new GlassesNoFrameItem(0f, 0f, 0f, 0f);
-  case GlassesFrame:
-    return new GlassesFrameItem(0f, 0f, 0f, 0f);
-  case GlassesComplete:
-    return new GlassesCompleteItem(0f, 0f, 0f, 0f);
+  case Batteries:
+    return new BatteriesItem(0f, 0f, 0f, 0f);
+  case Beans:
+    return new BeansItem(0f, 0f, 0f, 0f);
+  case Necklace:
+    return new NecklaceItem(0f, 0f, 0f, 0f);
+  case Badge:
+    return new BadgeItem(0f, 0f, 0f, 0f);
+  case Hairdryer:
+    return new HairdryerItem(0f, 0f, 0f, 0f);
+  case Bulb:
+    return new BulbItem(0f, 0f, 0f, 0f);
+  case Mop:
+    return new MopItem(0f, 0f, 0f, 0f);
+  case RemoteWet:
+    return new RemoteWetItem(0f, 0f, 0f, 0f);
+  case RemoteDry:
+    return new RemoteDryItem(0f, 0f, 0f, 0f);
+  case RemoteComplete:
+    return new RemoteCompleteItem(0f, 0f, 0f, 0f);
+  case Tap:
+    return new TapItem(0f, 0f, 0f, 0f);
+  case VaseEmpty:
+    return new VaseEmptyItem(0f, 0f, 0f, 0f);
+  case VaseFull:
+    return new VaseFullItem(0f, 0f, 0f, 0f);
   case Empty:
     return new EmptyItem();
   case Error:
@@ -133,92 +172,11 @@ public class ErrorItem extends Item
   public Item Combine(Item other) { return this; }
 }
 
-public class TestItem1 extends Item
-{
-  public TestItem1(float x, float y, float w, float h)
-  {
-    super(x, y, w, h, "item.jpg");
-  }
-
-  public ItemType getType() { 
-    return ItemType.Test1;
-  }
-
-  public Item Combine(Item other)
-  {
-    switch(other.getType())
-    {
-    case Empty:
-      return other;
-    case Test1:
-      return new EmptyItem();
-    case Test2:
-      return new TestItem3(x, y, w, h);
-    default:
-      return new ErrorItem();
-    }
-  }
-}
-
-public class TestItem2 extends Item
-{
-  public TestItem2(float x, float y, float w, float h)
-  {
-    super(x, y, w, h, "item2.png");
-  }
-
-  public ItemType getType() { 
-    return ItemType.Test2;
-  }
-
-  public Item Combine(Item other)
-  {
-    switch(other.getType())
-    {
-    case Empty:
-      return other;
-    case Test1:
-      return new TestItem3(x, y, w, h);
-    case Test2:
-      return new ErrorItem();
-    default:
-      return new ErrorItem();
-    }
-  }
-}
-
-public class TestItem3 extends Item
-{
-  public TestItem3(float x, float y, float w, float h)
-  {
-    super(x, y, w, h, "item3.jpg");
-  }
-
-  public ItemType getType() { 
-    return ItemType.Test3;
-  }
-
-  public Item Combine(Item other)
-  {
-    switch(other.getType())
-    {
-    case Empty:
-      return other;
-    case Test1:
-      return new ErrorItem();
-    case Test2:
-      return new ErrorItem();
-    default:
-      return new ErrorItem();
-    }
-  }
-}
-
 public class HatItem extends Item
 {
   public HatItem(float x, float y, float w, float h)
   {
-    super(x, y, w, h, "ph/hat.png");
+    super(x, y, w, h, folder + "hat.png");
   }
   
   public ItemType getType() { return ItemType.Hat; }
@@ -230,48 +188,227 @@ public class HatItem extends Item
   }
 }
 
-public class GlassesNoFrameItem extends Item
+//Batteries
+public class BatteriesItem extends Item
 {
-  public GlassesNoFrameItem(float x, float y, float w, float h)
+  public BatteriesItem(float x, float y, float w, float h)
   {
-    super(x, y, w, h, "ph/glassesnoframe.png");
+    super(x, y, w, h, folder + "batteries.png");
   }
   
-  public ItemType getType() { return ItemType.GlassesNoFrame; }
+  public ItemType getType() { return ItemType.Batteries; }
   
   public Item Combine(Item other)
   {
-    if(other.getType() == ItemType.GlassesFrame)
-      return new GlassesCompleteItem(x, y, w, h);
-    else return new ErrorItem();
+    if(other.getType() == ItemType.RemoteDry)
+    {
+      roomHandler.tHandler.finishTask();
+      return new RemoteCompleteItem(x, y, w, h);
+    }
+    return new ErrorItem();
   }
 }
 
-public class GlassesFrameItem extends Item
+//Beans
+public class BeansItem extends Item
 {
-  public GlassesFrameItem(float x, float y, float w, float h)
+  public BeansItem(float x, float y, float w, float h)
   {
-    super(x, y, w, h, "ph/glassesframe.png");
+    super(x, y, w, h, folder + "beans.png");
   }
   
-  public ItemType getType() { return ItemType.GlassesFrame; }
+  public ItemType getType() { return ItemType.Beans; }
   
   public Item Combine(Item other)
   {
-    if(other.getType() == ItemType.GlassesNoFrame)
-      return new GlassesCompleteItem(x, y, w, h);
-    else return new ErrorItem();
+    return new ErrorItem();
   }
 }
 
-public class GlassesCompleteItem extends Item
+//Necklace
+public class NecklaceItem extends Item
 {
-  public GlassesCompleteItem(float x, float y, float w, float h)
+  public NecklaceItem(float x, float y, float w, float h)
   {
-    super(x, y, w, h, "ph/glassescomplete.png");
+    super(x, y, w, h, folder + "necklace.png");
   }
   
-  public ItemType getType() { return ItemType.GlassesComplete; }
+  public ItemType getType() { return ItemType.Necklace; }
+  
+  public Item Combine(Item other)
+  {
+    return new ErrorItem();
+  }
+}
+
+//Badge
+public class BadgeItem extends Item
+{
+  public BadgeItem(float x, float y, float w, float h)
+  {
+    super(x, y, w, h, folder + "badge.png");
+  }
+  
+  public ItemType getType() { return ItemType.Badge; }
+  
+  public Item Combine(Item other)
+  {
+    return new ErrorItem();
+  }
+}
+
+//Hairdryer
+public class HairdryerItem extends Item
+{
+  public HairdryerItem(float x, float y, float w, float h)
+  {
+    super(x, y, w, h, folder + "hairdryer.png");
+  }
+  
+  public ItemType getType() { return ItemType.Hairdryer; }
+  
+  public Item Combine(Item other)
+  {
+    if(other.getType() == ItemType.RemoteWet)
+    {
+      roomHandler.driedRemote = true;
+      return new RemoteDryItem(x, y, w, h);
+    }
+    return new ErrorItem();
+  }
+}
+
+//Bulb
+public class BulbItem extends Item
+{
+  public BulbItem(float x, float y, float w, float h)
+  {
+    super(x, y, w, h, folder + "lightbulb.png");
+  }
+  
+  public ItemType getType() { return ItemType.Bulb; }
+  
+  public Item Combine(Item other)
+  {
+    return new ErrorItem();
+  }
+}
+
+//Mop
+public class MopItem extends Item
+{
+  public MopItem(float x, float y, float w, float h)
+  {
+    super(x, y, w, h, folder + "mop.png");
+  }
+  
+  public ItemType getType() { return ItemType.Mop; }
+  
+  public Item Combine(Item other)
+  {
+    return new ErrorItem();
+  }
+}
+
+//RemoteWet
+public class RemoteWetItem extends Item
+{
+  public RemoteWetItem(float x, float y, float w, float h)
+  {
+    super(x, y, w, h, folder + "remote_wet.png");
+  }
+  
+  public ItemType getType() { return ItemType.RemoteWet; }
+  
+  public Item Combine(Item other)
+  {
+    if(other.getType() == ItemType.Hairdryer)
+    {
+      roomHandler.driedRemote = true;
+      return new RemoteDryItem(x, y, w, h);
+    }
+    return new ErrorItem();
+  }
+}
+
+//RemoteDry
+public class RemoteDryItem extends Item
+{
+  public RemoteDryItem(float x, float y, float w, float h)
+  {
+    super(x, y, w, h, folder + "remote_dry.png");
+  }
+  
+  public ItemType getType() { return ItemType.RemoteDry; }
+  
+  public Item Combine(Item other)
+  {
+    if(other.getType() == ItemType.Batteries)
+    {
+      roomHandler.tHandler.finishTask();
+      return new RemoteCompleteItem(x, y, w, h);
+    }
+    return new ErrorItem();
+  }
+}
+
+//RemoteComplete
+public class RemoteCompleteItem extends Item
+{
+  public RemoteCompleteItem(float x, float y, float w, float h)
+  {
+    super(x, y, w, h, folder + "remote_complete.png");
+  }
+  
+  public ItemType getType() { return ItemType.RemoteComplete; }
+  
+  public Item Combine(Item other)
+  {
+    return new ErrorItem();
+  }
+}
+
+//Tap
+public class TapItem extends Item
+{
+  public TapItem(float x, float y, float w, float h)
+  {
+    super(x, y, w, h, folder + "tap.png");
+  }
+  
+  public ItemType getType() { return ItemType.Tap; }
+  
+  public Item Combine(Item other)
+  {
+    return new ErrorItem();
+  }
+}
+
+//VaseEmpty
+public class VaseEmptyItem extends Item
+{
+  public VaseEmptyItem(float x, float y, float w, float h)
+  {
+    super(x, y, w, h, folder + "vase_empty.png");
+  }
+  
+  public ItemType getType() { return ItemType.VaseEmpty; }
+  
+  public Item Combine(Item other)
+  {
+    return new ErrorItem();
+  }
+}
+
+//VaseFull
+public class VaseFullItem extends Item
+{
+  public VaseFullItem(float x, float y, float w, float h)
+  {
+    super(x, y, w, h, folder + "vase_full.png");
+  }
+  
+  public ItemType getType() { return ItemType.VaseFull; }
   
   public Item Combine(Item other)
   {

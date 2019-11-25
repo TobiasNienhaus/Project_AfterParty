@@ -1,17 +1,14 @@
 
 public class TaskHandler
 {
-  Task[] tasks;
+  boolean[] tasks;
+  int lastFinishedIndex = 0;
   
   public TaskHandler()
   {
-    tasks = new Task[3];
-    tasks[0] = new HatTask();
-    tasks[1] = new BottleTask();
-    tasks[2] = new GlassesTask();
+    tasks = new boolean[3];
     for(int i = 0; i < tasks.length; i++)
-      if(tasks[i] == null)
-        tasks[i] = new EmptyTask();
+      tasks[i] = false;
   }
   
   void display()
@@ -25,14 +22,13 @@ public class TaskHandler
     popMatrix();
   }
   
-  public HatTask getHatTask()
+  void finishTask()
   {
-    return (HatTask)tasks[0];
-  }
-  
-  public GlassesTask getGlassesTask()
-  {
-    return (GlassesTask)tasks[2];
+    if(lastFinishedIndex + 1 < tasks.length)
+    {
+      tasks[lastFinishedIndex] = true;
+      lastFinishedIndex++;
+    }
   }
   
   int fulfilledCount()
@@ -40,7 +36,7 @@ public class TaskHandler
     int c = 0;
     for(int i = 0; i < tasks.length; i++)
     {
-      if(tasks[i].fulfilled()) c++;
+      if(tasks[i]) c++;
     }
     return c;
   }
@@ -48,70 +44,5 @@ public class TaskHandler
   boolean allDone()
   {
     return tasks.length == fulfilledCount();
-  }
-}
-
-public abstract class Task
-{
-  protected Task() { }
-  
-  abstract boolean fulfilled();
-  boolean[] requirements;
-  int taskCount;
-}
-
-public class EmptyTask extends Task
-{
-  public EmptyTask(){}
-  public boolean fulfilled() { return false; }
-}
-
-public class HatTask extends Task
-{
-  public HatTask()
-  {
-    taskCount = 1;
-    requirements = new boolean[taskCount];
-  }
-  
-  public void fulfill()
-  {
-    requirements[0] = true;
-  }
-  
-  public boolean fulfilled()
-  {
-    for(boolean b : requirements)
-      if(!b) return false;
-    return true;
-  }
-}
-
-public class BottleTask extends Task
-{
-  public BottleTask() {}
-  
-  public boolean fulfilled()
-  {
-    return roomHandler.inv.bottleCount == roomHandler.inv.maxBottleCount;
-  }
-}
-
-public class GlassesTask extends Task
-{
-  public GlassesTask()
-  {
-    taskCount = 1;
-    requirements = new boolean[taskCount];
-  }
-  
-  public void fulfill()
-  {
-    requirements[0] = true;
-  }
-  
-  public boolean fulfilled()
-  {
-    return requirements[0];
   }
 }

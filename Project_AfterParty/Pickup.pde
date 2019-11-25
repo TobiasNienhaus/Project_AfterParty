@@ -11,7 +11,7 @@ public class Pickup
   public Pickup(float x, float y, float w)
   {
     area = new Rect(x, y, w, w*2);
-    img = loadImage("ph/bottle.png");
+    img = loadImage(folder + "bottle.png");
     
     this.x = x;
     this.y = y;

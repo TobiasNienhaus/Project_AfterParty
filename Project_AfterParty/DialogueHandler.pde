@@ -33,12 +33,13 @@ public class DialogueHandler
   }
   
   public Dialogue createDialogue(String[] text) { return new Dialogue(text); }
+  public Dialogue createDialogue(String text) { return createDialogue(new String[] { text }); }
   
   public boolean hasDialogue = false;
   
   public DialogueHandler()
   {
-    loadDialogue();
+    
   }
   
   Dialogue current;
@@ -91,35 +92,23 @@ public class DialogueHandler
     return true;
   }
   
-  Dialogue char1;
-  Dialogue char1End;
-  
-  Dialogue hatPickup;
-  
-  Dialogue char2;
-  Dialogue char2End;
-  
-  void loadDialogue()
+  public DialogueContainer createContainer()
   {
-    char1 = new Dialogue(new String[]{
-      "This is a character",
-      "He talks a bit",
-      "Maybe a bit more"
-    });
-    char1End = new Dialogue(new String[]{
-      "Thanks for getting back my stuff",
-      "I will leave now"
-    });
-    hatPickup = new Dialogue(new String[]{
-      "That must be [witch]'s hat",
-      "Better get it back to her"
-    });
-    char2 = new Dialogue(new String[]{
-      "I lost my glasses.\nCan you find them for me?"
-    });
-    char2End = new Dialogue(new String[]{
-      "Oh you found my glasses!!",
-      "Thank you so much!"
-    });
+    return new DialogueContainer();
+  }
+  
+  public class DialogueContainer
+  {
+    Dialogue vasePickup;
+    Dialogue vaseFillup;
+    
+    public DialogueContainer()
+    {
+      vasePickup = createDialogue(new String[]{
+        "There's no water in this vase.",
+        "If I place it back now they're going to notice"
+      });
+      vaseFillup = createDialogue("Now I can place it back");
+    }
   }
 }
