@@ -103,9 +103,11 @@ public class LivingRoom extends Room implements DialogueCallbackReceiver
       roomHandler.toHall();
     if(!hasRemote && MouseInRect(fishbowl_remote))
     {
-      hasRemote = true;
-      roomHandler.dHandler.startDialogue(dialogues.remoteDiscover,this);
-      roomHandler.inv.AddItem(ItemType.RemoteWet);
+      if(roomHandler.inv.AddItem(ItemType.RemoteWet))
+      {
+        hasRemote = true;
+        roomHandler.dHandler.startDialogue(dialogues.remoteDiscover,this);
+      }
     }
   }
   
@@ -150,6 +152,8 @@ public class Kitchen extends Room implements DialogueCallbackReceiver
   boolean hasCoffee = false;
   Rect coffeemachineBeans;
   
+  HiddenItem cupItem;
+  
   boolean hasBatteries;
   
   public Kitchen()
@@ -166,6 +170,8 @@ public class Kitchen extends Room implements DialogueCallbackReceiver
     tap = new ImageRect(1200, 450, 100, 100, folder + "tap.png");
     coffeemachine = new ImageRect(1500, 350, 200, 200, folder + "coffeemachine_empty.png");
     coffeemachineBeans = new ImageRect(1500, 350, 200, 200, folder + "coffeemachine_beans.png");
+    
+    cupItem = new HiddenItem(750, 400, 75, 75, ItemType.Cup, folder + "cup.png");
   }
   
   public void display()
@@ -181,6 +187,7 @@ public class Kitchen extends Room implements DialogueCallbackReceiver
     tap.display();
     if(!coffeeHasBeans || hasCoffee) coffeemachine.display();
     else coffeemachineBeans.display();
+    cupItem.display();
   }
   
   void handleMouseDown(int x, int y, MouseButton button)
@@ -189,21 +196,25 @@ public class Kitchen extends Room implements DialogueCallbackReceiver
       roomHandler.toLiving();
     if(!cupboardIsOpen && MouseInRect(cupboard))
     {
-      cupboardIsOpen = true;
-      roomHandler.inv.AddItem(ItemType.Beans);
+      if(roomHandler.inv.AddItem(ItemType.Beans))
+        cupboardIsOpen = true;
     }
     if(!cabinetIsOpen && MouseInRect(cabinet))
     {
-      cabinetIsOpen = true;
-      roomHandler.inv.AddItem(ItemType.Cup);
+      if(roomHandler.inv.AddItem(ItemType.Bulb))
+      {
+        cabinetIsOpen = true;
+        roomHandler.dHandler.startDialogue(dialogues.lampBulb,this);
+      }
     }
     if(!hasBatteries && MouseInRect(emptyDrawer))
     {
-      hasBatteries = true;
-      roomHandler.inv.AddItem(ItemType.Batteries);
+      if(roomHandler.inv.AddItem(ItemType.Batteries))
+        hasBatteries = true;
     }
     if(!hasCoffee && MouseInRect(coffeemachine))
       roomHandler.dHandler.startDialogue(dialogues.hangoverCureNeeded,this);
+    if(cupItem.checkClick());
   }
   
   void handleKeyDown(Key k)
@@ -214,7 +225,7 @@ public class Kitchen extends Room implements DialogueCallbackReceiver
   boolean dropItem(Item item)
   {
     if(item.getType() == ItemType.VaseEmpty && MouseInRect(tap)) {
-      roomHandler.inv.AddItem(ItemType.VaseFull);
+      if(!roomHandler.inv.AddItem(ItemType.VaseFull)) return false;
       roomHandler.dHandler.startDialogue(dialogues.vaseFillup,this);
       return true;
     }
@@ -284,8 +295,8 @@ class Hall extends Room implements DialogueCallbackReceiver
       roomHandler.toLiving();
     if(!closetOpen && MouseInRect(closet))
     {
-      closetOpen = true;
-      roomHandler.inv.AddItem(ItemType.Mop);
+      if(roomHandler.inv.AddItem(ItemType.Mop))
+        closetOpen = true;
     }
   }
   
@@ -348,7 +359,7 @@ public class Bathroom extends Room implements DialogueCallbackReceiver
   boolean dropItem(Item item)
   {
     if(item.getType() == ItemType.VaseEmpty && MouseInRect(tap)) {
-      roomHandler.inv.AddItem(ItemType.VaseFull);
+      if(!roomHandler.inv.AddItem(ItemType.VaseFull)) return false;
       roomHandler.dHandler.startDialogue(dialogues.vaseFillup,this);
       return true;
     }
@@ -365,6 +376,8 @@ class Bedroom extends Room implements DialogueCallbackReceiver
 {
   Rect door;
   Rect lamp;
+  boolean lampIsFixed = false;
+  Rect lampFixed;
   HiddenItem vase;
   
   Rect vaseSpot;
@@ -377,6 +390,7 @@ class Bedroom extends Room implements DialogueCallbackReceiver
     super("Bedroom", loadImage("bedroom.png"));
     door = new ImageRect(width - 400, 400, 300, 500, folder + "door.png");
     lamp = new ImageRect(300, 500, 100, 100, folder + "lamp_broken.png");
+    lampFixed = new ImageRect(300, 500, 100, 100, folder + "lamp_fixed.png");
     vase = new HiddenItem(width - 600, 400, 100, 229, ItemType.VaseEmpty, folder + "vase_empty.png");
     vaseSpot = new ImageRect(width - 600, 200, 150, 150, folder + "vase_spot.png");
     vaseFull = new ImageRect(width - 600, 200, 75, 171, folder + "vase_full.png", false);
@@ -386,7 +400,8 @@ class Bedroom extends Room implements DialogueCallbackReceiver
   {
     super.display();
     door.display();
-    lamp.display();
+    if(!lampIsFixed) lamp.display();
+    else lampFixed.display();
     vase.display();
     if(!completedVase) vaseSpot.display();
     if(tookVase && completedVase) vaseFull.display();
@@ -401,6 +416,8 @@ class Bedroom extends Room implements DialogueCallbackReceiver
       roomHandler.dHandler.startDialogue(dialogues.vasePickup, this);
       tookVase = true;
     }
+    if(!lampIsFixed && MouseInRect(lamp))
+      roomHandler.dHandler.startDialogue(dialogues.lampBroken,this);
   }
   
   void handleKeyDown(Key k)
@@ -410,14 +427,18 @@ class Bedroom extends Room implements DialogueCallbackReceiver
   
   boolean dropItem(Item item)
   {
-    if(tookVase && !completedVase)
+    if(tookVase && !completedVase && item.getType() == ItemType.VaseFull && MouseInRect(vaseSpot))
     {
-      if(item.getType() == ItemType.VaseFull && MouseInRect(vaseSpot))
-      {
-        completedVase = true;
-        roomHandler.tHandler.finishTask();
-        return true;
-      }
+      completedVase = true;
+      roomHandler.tHandler.finishTask();
+      return true;
+    }
+    if(!lampIsFixed && item.getType() == ItemType.Bulb && MouseInRect(lamp))
+    {
+      lampIsFixed = true;
+      roomHandler.tHandler.finishTask();
+      roomHandler.dHandler.startDialogue(dialogues.lampFix,this);
+      return true;
     }
     return false;
   }

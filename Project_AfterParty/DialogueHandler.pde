@@ -70,6 +70,7 @@ public class DialogueHandler
   public boolean startDialogue(Dialogue d, DialogueCallbackReceiver r)
   {
     if(!(current == null || current.finished)) return false;
+    roomHandler.t.block();
     current = d;
     hasDialogue = true;
     receiver = r;
@@ -87,6 +88,7 @@ public class DialogueHandler
       current = null;
       if(receiver != null) receiver.OnDialogueEnd();
       receiver = null;
+      roomHandler.t.unblock();
       return true;
     }
     return true;
@@ -113,6 +115,10 @@ public class DialogueHandler
     Dialogue hangoverBeans;
     Dialogue hangoverCupBeforeBeans;
     Dialogue hangoverCure;
+    
+    Dialogue lampBroken;
+    Dialogue lampBulb;
+    Dialogue lampFix;
     
     public DialogueContainer()
     {
@@ -142,6 +148,10 @@ public class DialogueHandler
         "I should get some beans first."
       });
       hangoverCure = createDialogue("Ahh, coffee.");
+      
+      lampBroken = createDialogue("Oh no, is that broken too?");
+      lampBulb = createDialogue("Yes, now I can fix the lamp!");
+      lampFix = createDialogue("Aand it's fixed.");
     }
   }
 }

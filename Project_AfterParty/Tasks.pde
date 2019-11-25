@@ -6,7 +6,7 @@ public class TaskHandler
   
   public TaskHandler()
   {
-    tasks = new boolean[4];
+    tasks = new boolean[5];
     for(int i = 0; i < tasks.length; i++)
       tasks[i] = false;
   }
@@ -15,6 +15,7 @@ public class TaskHandler
   {
     pushMatrix();
     pushStyle();
+    fill(0);
     textSize(60);
     textAlign(RIGHT, TOP);
     text("Tasks: " + fulfilledCount() + "/" + tasks.length, width, 0);

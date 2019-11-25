@@ -7,7 +7,7 @@ Rooms
 
 Items
     Item                    Filename                    aspect ratio
-    -----------------------------------------------------------------
+    -------------------------------------------------------------------
     (cup of coffee)
     (witch) hat             hat.png                     1x1
     badge                   badge.png                   1x1
@@ -51,6 +51,7 @@ Items
 
 Other
     Thing                   Filename                    aspect ratio
+    -------------------------------------------------------------------
     Door                    door.png                    2x3
     Staircase               staircase.png               4x3
     Vase Spot               vase_spot.png               1x1
@@ -58,6 +59,7 @@ Other
 
 Characters
     Character               Filename                    aspect ratio
+    -------------------------------------------------------------------
     Wendy (Witch)           wendy.png                   3x8
     Max (Cowboy)            max.png                     3x8
     Mike (Zombie)           mike.png                    3x8
