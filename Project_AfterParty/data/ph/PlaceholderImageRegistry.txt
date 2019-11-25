@@ -29,6 +29,8 @@ Items
         Closed              cabinet_closed.png          1x1
         Open                cabinet_open.png            1x1
     Kitchen Drawer          drawer.png                  7x5
+        Empty               drawer_empty.png            7x5
+        Full                drawer_full.png             7x5
     Lamp
         Broken              lamp_broken.png             1x1
         Fixed               lamp_fixed.png              1x1
