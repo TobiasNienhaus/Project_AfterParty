@@ -13,11 +13,13 @@ public class Timer
   public Timer(int time)
   {
     this.time = time;
+    oldMillis = 0;
   }
   
   public Timer(float min, float sec)
   {
     this.time = int(min * 60 + sec * 1000);
+    oldMillis = 0;
   }
   
   public void step()
@@ -41,8 +43,9 @@ public class Timer
     pushStyle();
     pushMatrix();
     textAlign(CENTER, CENTER);
-    float w = textWidth(timeText) + 20;
-    float h = textAscent() + 20;
+    textSize(64);
+    float w = textWidth("44444") + 20;
+    float h = textAscent() + 40;
     fill(0);
     //noStroke();
     rect(width/2f-w/2f,10,w,h);

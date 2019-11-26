@@ -11,10 +11,11 @@ enum Key
 
 void mousePressed()
 {
-  if(!canClose())
+  if(!intro.isFinished()) intro.onMouse();
+  else if(!canClose())
     gameHandler.handleMousePress();
-  else
-    exit();
+  else if (!outro.isFinished()) outro.onMouse();
+  else exit();
 }
 
 void mouseReleased()

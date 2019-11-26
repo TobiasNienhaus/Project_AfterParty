@@ -3,17 +3,17 @@ Items
     -----------------------------------------------------------------
     (cup of coffee)
     empty cup               cup.png                     1x1
-    (witch) hat             hat.png                     1x1
-    badge                   badge.png                   1x1
-    Batteries               batteries.png               1x1
+    -(witch) hat             hat.png                     1x1
+    -badge                   badge.png                   1x1
+    -Batteries               batteries.png               1x1
     beans                   beans.png                   1x1
     Bottle                  bottle.png                  1x2
     coffee machine
         Empty               coffeemachine_empty.png     1x1
         Beans               coffeemachine_beans.png     1x1
-    Fish Bowl
-        With Remote         fishbowl_remote.png         1x1
-        Without Remote      fishbowl_empty.png          1x1
+    -Fish Bowl
+    -    With Remote         fishbowl_remote.png         1x1
+    -    Without Remote      fishbowl_empty.png          1x1
     Hair Dryer              hairdryer.png               1x1
     Lamp
         Broken              lamp_broken.png             1x1

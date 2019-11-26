@@ -153,6 +153,16 @@ public abstract class Item
     this.y = y;
   }
   
+  public void setPos(float x, float y, boolean centered)
+  {
+    if(centered) {
+      this.x = x - w/2f;
+      this.y = y - h/2f;
+    } else {
+      setPos(x, y);
+    }
+  }
+  
   public void setSize(float w, float h)
   {
     this.w = w;
@@ -208,7 +218,7 @@ public class BatteriesItem extends Item
   {
     if(other.getType() == ItemType.RemoteDry)
     {
-      gameHandler.tHandler.finishTask();
+      gameHandler.tHandler.remoteTask = true;
       gameHandler.dHandler.startDialogue(dialogues.remoteBatteries,null);
       return new RemoteCompleteItem(x, y, w, h);
     }
@@ -358,7 +368,7 @@ public class RemoteDryItem extends Item
   {
     if(other.getType() == ItemType.Batteries)
     {
-      gameHandler.tHandler.finishTask();
+      gameHandler.tHandler.remoteTask = true;
       gameHandler.dHandler.startDialogue(dialogues.remoteBatteries,null);
       return new RemoteCompleteItem(x, y, w, h);
     }

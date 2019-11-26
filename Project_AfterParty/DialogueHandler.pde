@@ -52,15 +52,17 @@ public class DialogueHandler
     fill(255);
     stroke(0);
     strokeWeight(10);
+    textFont(fontDialogue);
+    textSize(60);
+    textLeading(60);
     float rectW = width * .8f;
     float rectX = (width - rectW) /2f;
     float rectH = height * .2f;
     float rectY = height - rectH - (rectH * .25f);
     rect(rectX, rectY, rectW, rectH);
     textAlign(CENTER, CENTER);
-    textSize(60);
     fill(0);
-    text(current.getLine(), rectX, rectY, rectW, rectH);
+    text(current.getLine(), rectX+10, rectY+10, rectW-20, rectH-20);
     popStyle();
     popMatrix();
   }
@@ -127,13 +129,30 @@ public class DialogueHandler
     Dialogue bottle5;
     Dialogue bottle6;
     
+    Dialogue wendyStart;
+    Dialogue wendyInbetween;
+    Dialogue wendyComplete;
+    Dialogue wendyLeave;
+    
+    Dialogue maxStart;
+    Dialogue maxInbetween;
+    Dialogue maxComplete;
+    
+    Dialogue mikeStart;
+    Dialogue mikeInbetween;
+    Dialogue mikeComplete;
+    
+    Dialogue sarahStart;
+    Dialogue sarahInbetween;
+    Dialogue sarahComplete;
+    
     public DialogueContainer()
     {
       vasePickup = createDialogue(new String[]{
         "There's no water in this vase.",
-        "If I place it back now they're going to notice"
+        "If I place it back now they're going to notice."
       });
-      vaseFillup = createDialogue("Now I can place it back");
+      vaseFillup = createDialogue("Now I can place it back on the night stand.");
       
       remoteDiscover = createDialogue(new String[]{
         "The remote is wet and the batteries no longer work.",
@@ -166,6 +185,81 @@ public class DialogueHandler
       bottle4 = createDialogue("Four.");
       bottle5 = createDialogue("And that's five.");
       bottle6 = createDialogue("Looks like that's all of them.");
+      
+      wendyStart = createDialogue(new String[]{
+        "Player: Hey, Wendy, I’m sorry for breaking up the fun, but you have to leave.",
+        "Wendy (panicky): No! I can’t leave without my hat – I will be cursed!",
+        "Player: What? Cursed?",
+        "Wendy: Yes! That was my Grandmother’s hat and if I don’t bring it back, she will curse me!",
+        "Player: Ugh fine, I will find it. But after I do - you are going to leave."
+      });
+      wendyInbetween = createDialogue("Wendy: Have you found my hat yet?");
+      wendyComplete = createDialogue(new String[]{
+        "Player: Here you go, I found your little hat.",
+        "Wendy: Oh, thank you! I will be free of my Grandmother’s curse!",
+        "Player: Yeah and also you are free to leave this place now.",
+        "Wendy: Yes, of course. I will be on my way. Goodbye!"
+      });
+      wendyLeave = createDialogue("Player (silently): What a weirdo.");
+      
+      maxStart = createDialogue(new String[]{
+        "Player: Howdy, Max! Can I ask you to…",
+        "Max: Man, have you seen my golden badge anywhere?",
+        "Player: Badge? Man really…",
+        "Max: Dude, I’m not going anywhere without it, it’s my dad’s.", 
+        "He is going to lynch me if I come back without it!",
+        "You should look somewhere in the living room for it.",
+        "That’s the place, where I blacked out yesterday.",
+        "Player: (silently) Jesus, why can’t he look for it himself?",
+        "All right, here is the deal – when I find it you have to leave ASAP, okay?",
+        "Max: You got it chief!"
+      });
+      maxInbetween = createDialogue("Max: Have you found my badge yet?");
+      maxComplete = createDialogue(new String[]{
+        "Player: Okay, partner. Here you go.",
+        "Max: Thanks man! You’re a lifesaver.",
+        "Player: Yeah, it’s on the house.",
+        "Max: Happy trails (winks)."
+      });
+      
+      mikeStart = createDialogue(new String[]{
+        "Player: Mike? Mike! Come on wake-up man!",
+        "Mike: ZZzzzzzZz…",
+        "Player: Dammit Mike. How do I wake you up?",
+        "Mike: ZzzZzzz…",
+        "Player: Huh. How about some \"holy water\", eh?"
+      });
+      mikeInbetween = createDialogue("Mike: ZZzzzZzZzZZ...");
+      mikeComplete = createDialogue(new String[]{
+        "Mike: AAAAHHHH COLD, COLD!",
+        "...",
+        "Mike: Oh.",
+        "Player: Morning Mike.",
+        "Mike: Good morning.",
+        "Player: It’s time to go, Mike.",
+        "Mike: Alright dude. I’m heading out then.",
+        "Player: Yeah, see you later man."
+      });
+      
+      sarahStart = createDialogue(new String[]{
+        "Player: Sarah, there you are.",
+        "Sarah: Oh…hello there.",
+        "Player: Why are you looking so sad?",
+        "Sarah: I…I lost my cross necklace and I have to go to church tomorrow.",
+        "I’m so ashamed of myself.",
+        "Player: Hey now, don’t worry about I will help you out.",
+        "But after that I will also have to ask you to leave, because my parents are coming back soon.",
+        "Sarah: Yes of course, I can understand that.",
+        "Last thing that I can remember clearly is that…I was pouring drinks in the kitchen.",
+        "Player: Hmm, okay. I can look around in there."
+      });
+      sarahInbetween = createDialogue("Sarah: Please tell me, you found the necklace.");
+      sarahComplete = createDialogue(new String[]{
+        "Sarah: Dear Lord, you found it!",
+        "Player: Yup, here you go Sarah.",
+        "Sarah: God bless your soul and good luck with the parents!",
+        "Player: Thanks! I really think that I will need it."
+      });
     }
   }
 }

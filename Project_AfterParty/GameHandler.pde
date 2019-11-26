@@ -13,6 +13,8 @@ public class GameHandler
   TaskHandler tHandler;
   DialogueHandler dHandler;
   
+  boolean maxLeft = false, mikeLeft = false, sarahLeft = false, wendyLeft = false;
+  
   Timer t;
   
   boolean driedRemote = false;
@@ -56,6 +58,35 @@ public class GameHandler
   public void toHall()
   {
     active = hall;
+  }
+  
+  public boolean allGuestsLeft()
+  {
+    return mikeLeft && maxLeft && sarahLeft && wendyLeft;
+  }
+  
+  void mikeLeaves()
+  {
+    mikeLeft = true;
+    if(allGuestsLeft()) tHandler.guestTask = true;
+  }
+  
+  void maxLeaves()
+  {
+    maxLeft = true;
+    if(allGuestsLeft()) tHandler.guestTask = true;
+  }
+  
+  void sarahLeaves()
+  {
+    sarahLeft = true;
+    if(allGuestsLeft()) tHandler.guestTask = true;
+  }
+  
+  void wendyLeaves()
+  {
+    wendyLeft = true;
+    if(allGuestsLeft()) tHandler.guestTask = true;
   }
   
   void display()

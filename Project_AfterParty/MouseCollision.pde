@@ -46,7 +46,7 @@ public class Rect
   
   void display()
   {
-    if(MouseInRect(this)) cursor(hand_selected);
+    if(MouseInRect(this)) handSelected();
     pushStyle();
     fill(255,255,255,64);
     rect(x, y, w, h);
@@ -89,7 +89,7 @@ public class ImageRect extends Rect
   
   void display()
   {
-    if(changeCursor && MouseInRect(this)) cursor(hand_selected);
+    if(changeCursor && MouseInRect(this)) handSelected();
     image(img, x, y, w,h);
   }
 }
@@ -110,7 +110,7 @@ public class Circle
   
   void debugDisplay()
   {
-    if(MouseInCircle(this)) cursor(hand_selected);
+    if(MouseInCircle(this)) handSelected();
     pushStyle();
     fill(255,255,255,64);
     circle(x, y, r);

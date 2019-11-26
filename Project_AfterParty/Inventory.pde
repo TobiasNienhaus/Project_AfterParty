@@ -78,6 +78,8 @@ public class Inventory
     if(index == -1)
       return false;
     items[index].item = item;
+    items[index].updatePos();
+    items[index].updateSize();
     return true;
   }
   
@@ -85,6 +87,8 @@ public class Inventory
   public boolean AddItem(ItemType type)
   {
     int index = findFirstEmpty();
+    println("Index: " + index);
+    printArray(items);
     if(index == -1) return false;
     Item item = createItemFromType(type);
     items[index].item = item;
@@ -209,6 +213,8 @@ public class Inventory
         // if the press is valid, copy the item under the mouse
         draggedItem = createItemFromType(items[i].item);
         draggedIndex = i;
+        deleteItem(draggedIndex);
+        reorderArray();
         res = true;
       }
     }
@@ -242,6 +248,7 @@ public class Inventory
     }
     
     // mouse was released so reset the dragged item
+    if(!res) AddItem(draggedItem);
     draggedItem = null;
     draggedIndex = -1;
     return res;
@@ -254,15 +261,17 @@ public class Inventory
     
     if(draggedItem != null)
     {
-      draggedItem.setPos(mouseX,mouseY);
+      draggedItem.setPos(mouseX,mouseY, true);
       draggedItem.display();
     }
     
     pushMatrix();
+    pushStyle();
     textSize(64);
     fill(0);
     textAlign(LEFT, TOP);
     text("Bottles: " + bottleCount + "/" + maxBottleCount, 25, 25);
+    popStyle();
     popMatrix();
   }
   
@@ -285,7 +294,7 @@ public class Inventory
     else if(bottleCount == 6)
     {
       gameHandler.dHandler.startDialogue(dialogues.bottle6,null);
-      gameHandler.tHandler.finishTask();
+      gameHandler.tHandler.bottleTask = true;
     }
   }
 }
