@@ -8,10 +8,15 @@ public class Pickup
   
   boolean picked = false;
   
+  final String[] bottleFiles = new String[] {
+    folder + "bottle.png"
+  };
+  
   public Pickup(float x, float y, float w)
   {
+    String path = bottleFiles[int(random(bottleFiles.length))];
     area = new Rect(x, y, w, w*2);
-    img = loadImage(folder + "bottle.png");
+    img = loadImage(path);
     
     this.x = x;
     this.y = y;
@@ -26,15 +31,17 @@ public class Pickup
     image(img, x, y, w, h);
   }
   
-  void checkClick()
+  boolean checkClick()
   {
     if(!picked)
     {
       if(MouseInRect(area))
       {
-        roomHandler.inv.collectBottle();
+        gameHandler.inv.collectBottle();
         picked = true;
+        return true;
       }
     }
+    return false;
   }
 }

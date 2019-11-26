@@ -12,17 +12,17 @@ enum Key
 void mousePressed()
 {
   if(!canClose())
-    roomHandler.handleMousePress();
+    gameHandler.handleMousePress();
   else
     exit();
 }
 
 void mouseReleased()
 {
-  roomHandler.handleMouseUp();
+  gameHandler.handleMouseUp();
 }
 
 void keyPressed()
 {
-  roomHandler.handleKeyPress();
+  gameHandler.handleKeyPress();
 }

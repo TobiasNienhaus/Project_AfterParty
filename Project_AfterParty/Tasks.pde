@@ -6,7 +6,7 @@ public class TaskHandler
   
   public TaskHandler()
   {
-    tasks = new boolean[5];
+    tasks = new boolean[6];
     for(int i = 0; i < tasks.length; i++)
       tasks[i] = false;
   }

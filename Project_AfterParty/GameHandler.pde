@@ -1,5 +1,5 @@
 
-public class RoomHandler
+public class GameHandler
 {
   Room kitchen;
   Room living;

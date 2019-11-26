@@ -70,7 +70,7 @@ public class DialogueHandler
   public boolean startDialogue(Dialogue d, DialogueCallbackReceiver r)
   {
     if(!(current == null || current.finished)) return false;
-    roomHandler.t.block();
+    gameHandler.t.block();
     current = d;
     hasDialogue = true;
     receiver = r;
@@ -88,7 +88,7 @@ public class DialogueHandler
       current = null;
       if(receiver != null) receiver.OnDialogueEnd();
       receiver = null;
-      roomHandler.t.unblock();
+      gameHandler.t.unblock();
       return true;
     }
     return true;
@@ -119,6 +119,13 @@ public class DialogueHandler
     Dialogue lampBroken;
     Dialogue lampBulb;
     Dialogue lampFix;
+    
+    Dialogue bottle1;
+    Dialogue bottle2;
+    Dialogue bottle3;
+    Dialogue bottle4;
+    Dialogue bottle5;
+    Dialogue bottle6;
     
     public DialogueContainer()
     {
@@ -152,6 +159,13 @@ public class DialogueHandler
       lampBroken = createDialogue("Oh no, is that broken too?");
       lampBulb = createDialogue("Yes, now I can fix the lamp!");
       lampFix = createDialogue("Aand it's fixed.");
+      
+      bottle1 = createDialogue("Ohh god, how many of these things are there?");
+      bottle2 = createDialogue("Well, that's two.");
+      bottle3 = createDialogue("Three now.");
+      bottle4 = createDialogue("Four.");
+      bottle5 = createDialogue("And that's five.");
+      bottle6 = createDialogue("Looks like that's all of them.");
     }
   }
 }

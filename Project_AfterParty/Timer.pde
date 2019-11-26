@@ -1,12 +1,13 @@
 
 public class Timer
 {
-  int time = int(5 * 60 * 1000 + 10 * 1000);
+  int time = int(5 * 60 * 1000 + 0 * 1000);
   int oldMillis = 0;
   boolean block = false;
 
   public Timer()
   {
+    
   }
   
   public Timer(int time)
@@ -34,7 +35,8 @@ public class Timer
     int minutes = time/1000/60;
     int seconds = (time/1000)%60;
     int millis = time%1000;
-    String timeText = String.format((java.util.Locale)null, "%02d:%02d:%03d", minutes, seconds, millis);
+    String timeText = String.format(
+      (java.util.Locale)null, "%02d:%02d", minutes, seconds);
     
     pushStyle();
     pushMatrix();

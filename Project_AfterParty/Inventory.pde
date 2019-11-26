@@ -233,7 +233,7 @@ public class Inventory
     // if there is no item under the mouse, check if it is being dropped on an object in the scene
     if(!res)
     {
-      if(roomHandler.dropItem(draggedItem))
+      if(gameHandler.dropItem(draggedItem))
       {
         deleteItem(draggedIndex);
         reorderArray();
@@ -260,16 +260,32 @@ public class Inventory
     
     pushMatrix();
     textSize(64);
+    fill(0);
     textAlign(LEFT, TOP);
     text("Bottles: " + bottleCount + "/" + maxBottleCount, 25, 25);
     popMatrix();
   }
   
   int bottleCount = 0;
-  int maxBottleCount = 3;
+  int maxBottleCount = 6;
   
   void collectBottle()
   {
     bottleCount++;
+    if(bottleCount == 1)
+      gameHandler.dHandler.startDialogue(dialogues.bottle1,null);
+    else if(bottleCount == 2)
+      gameHandler.dHandler.startDialogue(dialogues.bottle2,null);
+    else if(bottleCount == 3)
+      gameHandler.dHandler.startDialogue(dialogues.bottle3,null);
+    else if(bottleCount == 4)
+      gameHandler.dHandler.startDialogue(dialogues.bottle4,null);
+    else if(bottleCount == 5)
+      gameHandler.dHandler.startDialogue(dialogues.bottle5,null);
+    else if(bottleCount == 6)
+    {
+      gameHandler.dHandler.startDialogue(dialogues.bottle6,null);
+      gameHandler.tHandler.finishTask();
+    }
   }
 }

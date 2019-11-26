@@ -7,7 +7,7 @@ import ddf.minim.ugens.*;
 
 import processing.sound.*;
 
-RoomHandler roomHandler;
+GameHandler gameHandler;
 DialogueHandler.DialogueContainer dialogues;
 
 PImage hand_selected;
@@ -20,9 +20,9 @@ void setup()
   fullScreen(FX2D);
   hand_selected = loadImage("final/hand_selected.png");
   hand_closed = loadImage("final/hand_closed.png");
-  roomHandler = new RoomHandler();
-  roomHandler.initRooms();
-  dialogues = roomHandler.dHandler.createContainer();
+  gameHandler = new GameHandler();
+  gameHandler.initRooms();
+  dialogues = gameHandler.dHandler.createContainer();
 }
 
 void draw()
@@ -30,7 +30,7 @@ void draw()
   background(0);
   cursor(hand_closed);
   if(!canClose()) 
-    roomHandler.display();
+    gameHandler.display();
   else
   {
     pushStyle(); pushMatrix();
@@ -44,5 +44,5 @@ void draw()
 
 boolean canClose()
 {
-  return (roomHandler.tHandler.allDone() && (!roomHandler.dHandler.hasDialogue));
+  return (gameHandler.tHandler.allDone() && (!gameHandler.dHandler.hasDialogue));
 }

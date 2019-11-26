@@ -208,12 +208,12 @@ public class BatteriesItem extends Item
   {
     if(other.getType() == ItemType.RemoteDry)
     {
-      roomHandler.tHandler.finishTask();
-      roomHandler.dHandler.startDialogue(dialogues.remoteBatteries,null);
+      gameHandler.tHandler.finishTask();
+      gameHandler.dHandler.startDialogue(dialogues.remoteBatteries,null);
       return new RemoteCompleteItem(x, y, w, h);
     }
     if(other.getType() == ItemType.RemoteWet)
-      roomHandler.dHandler.startDialogue(dialogues.remoteWrongCombine,null);
+      gameHandler.dHandler.startDialogue(dialogues.remoteWrongCombine,null);
     return new ErrorItem();
   }
 }
@@ -280,8 +280,8 @@ public class HairdryerItem extends Item
   {
     if(other.getType() == ItemType.RemoteWet)
     {
-      roomHandler.driedRemote = true;
-      roomHandler.dHandler.startDialogue(dialogues.remoteDrying,null);
+      gameHandler.driedRemote = true;
+      gameHandler.dHandler.startDialogue(dialogues.remoteDrying,null);
       return new RemoteDryItem(x, y, w, h);
     }
     return new ErrorItem();
@@ -334,12 +334,12 @@ public class RemoteWetItem extends Item
   {
     if(other.getType() == ItemType.Hairdryer)
     {
-      roomHandler.dHandler.startDialogue(dialogues.remoteDrying,null);
-      roomHandler.driedRemote = true;
+      gameHandler.dHandler.startDialogue(dialogues.remoteDrying,null);
+      gameHandler.driedRemote = true;
       return new RemoteDryItem(x, y, w, h);
     }
     if(other.getType() == ItemType.Batteries)
-      roomHandler.dHandler.startDialogue(dialogues.remoteWrongCombine,null);
+      gameHandler.dHandler.startDialogue(dialogues.remoteWrongCombine,null);
     return new ErrorItem();
   }
 }
@@ -358,8 +358,8 @@ public class RemoteDryItem extends Item
   {
     if(other.getType() == ItemType.Batteries)
     {
-      roomHandler.tHandler.finishTask();
-      roomHandler.dHandler.startDialogue(dialogues.remoteBatteries,null);
+      gameHandler.tHandler.finishTask();
+      gameHandler.dHandler.startDialogue(dialogues.remoteBatteries,null);
       return new RemoteCompleteItem(x, y, w, h);
     }
     return new ErrorItem();
