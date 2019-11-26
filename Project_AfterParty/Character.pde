@@ -67,6 +67,7 @@ public class Wendy extends Guest
     if(!left && finishedQuest)
     {
       left = true;
+      gameHandler.wendyLeaves();
       gameHandler.dHandler.startDialogue(dialogues.wendyLeave,this);
     }
   }
@@ -122,6 +123,7 @@ public class Max extends Guest
   {
     if(!left && finishedQuest)
     {
+      gameHandler.maxLeaves();
       left = true;
     }
   }
@@ -167,19 +169,22 @@ public class Mike extends Guest
     return false;
   }
   
-  public void flood()
+  public boolean flood()
   {
     if(startedQuest && !left && !finishedQuest)
     {
       finishedQuest = true;
       gameHandler.dHandler.startDialogue(dialogues.mikeComplete, this);
+      return true;
     }
+    return false;
   }
   
   public void OnDialogueEnd()
   {
     if(!left && finishedQuest)
     {
+      gameHandler.mikeLeaves();
       left = true;
     }
   }
@@ -222,7 +227,7 @@ public class Sarah extends Guest
   
   public boolean dropItem(Item item)
   {
-    if(startedQuest && !left && !finishedQuest && item.getType() == ItemType.Hat)
+    if(startedQuest && !left && !finishedQuest && item.getType() == ItemType.Necklace)
     {
       finishedQuest = true;
       gameHandler.dHandler.startDialogue(dialogues.sarahComplete, this);
@@ -235,6 +240,7 @@ public class Sarah extends Guest
   {
     if(!left && finishedQuest)
     {
+      gameHandler.sarahLeaves();
       left = true;
     }
   }

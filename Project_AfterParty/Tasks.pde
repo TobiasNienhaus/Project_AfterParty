@@ -15,6 +15,7 @@ public class TaskHandler
   boolean guestTask     =false;
   
   Rect taskRect;
+  float rectW;
   
   public TaskHandler()
   {
@@ -29,6 +30,7 @@ public class TaskHandler
     taskRect = new Rect(width-w, -1, w+10,h+10);
     popStyle();
     popMatrix();
+    rectW = biggestTextWidth();
   }
   
   void display()
@@ -40,7 +42,7 @@ public class TaskHandler
     textLeading(60);
     textAlign(RIGHT, TOP);
     float w = taskRect.w;
-    float h = textAscent() + textDescent();//taskRect.h;
+    float h = textAscent() + textDescent();
     text("Tasks: " + fulfilledCount() + "/" + taskCount, width-w-10, 10, w, h);
     if(MouseInRect(taskRect))
     {
@@ -70,7 +72,11 @@ public class TaskHandler
     textAlign(CENTER, TOP);
     textSize(60);
     textLeading(60);
+    
     float lh = textAscent() + textDescent();
+    fill(0);
+    rect(width/2f - (rectW*1.1f)/2f, 200, rectW*1.1, lh*7);
+    
     fill(255, 0, 0);
     if(vaseTask) fill(0, 255, 0);
     text("Clean up the vase", width/2f, 200 + lh*0);
@@ -91,13 +97,40 @@ public class TaskHandler
     text("Drink some coffee", width/2f, 200 + lh*5);
     fill(255, 0, 0);
     if(guestTask) fill(0, 255, 0);
-    text("Throw out all of the guests", width/2f, 200 + lh*6);
+    text("Throw out all of the guests (" + gameHandler.guestsGone() + "/4)", width/2f, 200 + lh*6);
     popStyle();
     popMatrix();
   }
   
+  float biggestTextWidth()
+  {
+    pushMatrix();
+    pushStyle();
+    textAlign(CENTER, TOP);
+    textSize(60);
+    textLeading(60);
+    float res = 0f;
+    float t1 = textWidth("Clean up the vase");
+    float t2 = textWidth("Collect all bottles");
+    float t3 = textWidth("Repair the remote");
+    float t4 = textWidth("Mop up the dirt");
+    float t5 = textWidth("Repair the night lamp");
+    float t6 = textWidth("Drink some coffee");
+    float t7 = textWidth("Throw out all of the guests (444)");
+    if(t1 > res) res = t1;
+    if(t2 > res) res = t2;
+    if(t3 > res) res = t3;
+    if(t4 > res) res = t4;
+    if(t5 > res) res = t5;
+    if(t6 > res) res = t6;
+    if(t7 > res) res = t7;
+    popStyle();
+    popMatrix();
+    return res;
+  }
+  
   boolean allDone()
   {
-    return vaseTask && bottleTask && remoteTask && mopTask && lightTask && coffeeTask;
+    return vaseTask && bottleTask && remoteTask && mopTask && lightTask && coffeeTask && guestTask;
   }
 }

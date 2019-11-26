@@ -16,10 +16,12 @@ OutroHandler outro;
 PImage hand_selected;
 PImage hand_closed;
 
-public String folder = "ph/";
+public String folder = "final/";
 
 PFont fontDialogue;
 PFont fontStraight;
+
+boolean debug = true;
 
 void setup()
 {

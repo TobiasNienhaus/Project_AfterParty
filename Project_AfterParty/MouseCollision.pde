@@ -36,17 +36,30 @@ public class Rect
   float w;
   float h;
   
+  boolean changeCursor;
+  
   public Rect(float x, float y, float w, float h)
   {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
+    changeCursor = true;
+  }
+  
+  public Rect(float x, float y, float w, float h, boolean changeCursor)
+  {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    this.changeCursor = changeCursor;
   }
   
   void display()
   {
-    if(MouseInRect(this)) handSelected();
+    if(changeCursor && MouseInRect(this)) handSelected();
+    if(!debug) return;
     pushStyle();
     fill(255,255,255,64);
     rect(x, y, w, h);

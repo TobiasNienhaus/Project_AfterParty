@@ -65,6 +65,16 @@ public class GameHandler
     return mikeLeft && maxLeft && sarahLeft && wendyLeft;
   }
   
+  public int guestsGone()
+  {
+    int c = 0;
+    if(mikeLeft) c++;
+    if(maxLeft) c++;
+    if(sarahLeft) c++;
+    if(wendyLeft) c++;
+    return c;
+  }
+  
   void mikeLeaves()
   {
     mikeLeft = true;

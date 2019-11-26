@@ -87,8 +87,6 @@ public class Inventory
   public boolean AddItem(ItemType type)
   {
     int index = findFirstEmpty();
-    println("Index: " + index);
-    printArray(items);
     if(index == -1) return false;
     Item item = createItemFromType(type);
     items[index].item = item;
@@ -117,29 +115,39 @@ public class Inventory
   }
   
   // combine two items
-  void CombineItems(Item i1, Item i2)
+  boolean CombineItems(Item i1, Item i2)
   {
     // try to combine the two items
     Item res = i1.Combine(i2);
     // if the combination is not valid, return
     if(res.getType() == ItemType.Error || res.getType() == ItemType.Empty)
-      return;
+    {
+      return false;
+    }
     // get indices of the two old items
     int index1 = getIndex(i1);
     int index2 = getIndex(i2);
     
     // check if both indices are valid, if not return
-    if(index1 < 0 || index1 > items.length)
-      return;
-    if(index2 < 0 || index2 > items.length)
-      return;
-    
-    // set combined item to slot of first item
-    items[index1].item = res;
-    // delete the other item
-    deleteItem(index2);
-    // reorder the array
-    reorderArray();
+    if((index1 < 0 || index1 > items.length) && (index2 < 0 || index2 > items.length))
+      return false;
+    if(index2 < 0 || index2 > items.length) {
+      items[index1].item = res;
+      reorderArray();
+      return true;
+    } else if (index1 < 0 || index1 > items.length) {
+      items[index2].item = res;
+      reorderArray();
+      return true;
+    } else {
+      // set combined item to slot of first item
+      items[index1].item = res;
+      // delete the other item
+      deleteItem(index2);
+      // reorder the array
+      reorderArray();
+      return true;
+    }
   }
   
   // reorder the array, that empty slots are in the end
@@ -212,6 +220,7 @@ public class Inventory
       {
         // if the press is valid, copy the item under the mouse
         draggedItem = createItemFromType(items[i].item);
+        printItemType(draggedItem.getType());
         draggedIndex = i;
         deleteItem(draggedIndex);
         reorderArray();
@@ -232,23 +241,25 @@ public class Inventory
       if(MouseInRect(items[i].rect))
       {
         // try to combine the items (the one that's dragged and the one thats under the mouse)
-        CombineItems(items[draggedIndex].item, items[i].item);
-        res = true;
-      } 
+        if(CombineItems(draggedItem, items[i].item))
+          res = true;
+      }
     }
     // if there is no item under the mouse, check if it is being dropped on an object in the scene
     if(!res)
     {
       if(gameHandler.dropItem(draggedItem))
       {
-        deleteItem(draggedIndex);
         reorderArray();
         res = true;
       }
     }
     
     // mouse was released so reset the dragged item
-    if(!res) AddItem(draggedItem);
+    if(!res)
+    {
+      AddItem(createItemFromType(draggedItem));
+    }
     draggedItem = null;
     draggedIndex = -1;
     return res;
