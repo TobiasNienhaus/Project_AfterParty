@@ -3,18 +3,12 @@ story
 	The party quickly got out of hand. People got drunk and started to make a mess of things. Everyone's stuff is all over the place and many things broke or fell over.
 	Now your mom called and told you she's five minutes away from home, and you still need to get everyone out and clean everything up. Ohh shit
 
-
-
-
 Rooms
 	living room
 	bathroom
 	bedroom
 	hall
 	Kitchen
-
-
-
 
 Quests
 	put a vase upright
@@ -86,7 +80,6 @@ Wendy (Witch)
 		- (silently) What a weirdo.
 		>Quest completed.
 
-
 Max (Cowboy)
 	- lost his badge
 	>Player can find Max standing in the kitchen.
@@ -116,7 +109,6 @@ Max (Cowboy)
 		Max:
 		- Happy trails (winks).
 		>Quest completed.
-
 
 Mike (Zombie)
 	- needs to be "revived" with water
@@ -153,7 +145,6 @@ Mike (Zombie)
 		>Mike leaves the house.
 		>Quest completed.
 
-
 Sarah (Nun)
 	- needs her necklace
 	>You find Sarah standing in the hall.
@@ -185,6 +176,4 @@ Sarah (Nun)
 		- Thanks! I really think that I will need it.
 		>Sarah leaves the house.
 		>Quest completed.
-
-
 			

@@ -20,6 +20,12 @@ public class Inventory
     void display()
     {
       rect.display();
+      pushStyle();
+      fill(255,165,0, 128);
+      stroke(255,124,0);
+      strokeWeight(5);
+      rect(rect.x, rect.y, rect.w, rect.h);
+      popStyle();
       item.display();
     }
     
@@ -132,16 +138,25 @@ public class Inventory
     if((index1 < 0 || index1 > items.length) && (index2 < 0 || index2 > items.length))
       return false;
     if(index2 < 0 || index2 > items.length) {
-      items[index1].item = res;
+      if(res.getType() != ItemType.RemoteComplete)
+        items[index1].item = res;
+      else
+        deleteItem(index1);
       reorderArray();
       return true;
     } else if (index1 < 0 || index1 > items.length) {
-      items[index2].item = res;
+      if(res.getType() != ItemType.RemoteComplete)
+        items[index2].item = res;
+      else
+        deleteItem(index2);
       reorderArray();
       return true;
     } else {
       // set combined item to slot of first item
-      items[index1].item = res;
+      if(res.getType() != ItemType.RemoteComplete)
+        items[index1].item = res;
+      else
+        deleteItem(index1);
       // delete the other item
       deleteItem(index2);
       // reorder the array
@@ -220,11 +235,13 @@ public class Inventory
       {
         // if the press is valid, copy the item under the mouse
         draggedItem = createItemFromType(items[i].item);
-        printItemType(draggedItem.getType());
-        draggedIndex = i;
-        deleteItem(draggedIndex);
-        reorderArray();
-        res = true;
+        if(draggedItem.getType() == ItemType.Empty || draggedItem.getType() == ItemType.Error);
+        else {
+          draggedIndex = i;
+          deleteItem(draggedIndex);
+          reorderArray();
+          res = true;
+        }
       }
     }
     return res;
@@ -275,15 +292,6 @@ public class Inventory
       draggedItem.setPos(mouseX,mouseY, true);
       draggedItem.display();
     }
-    
-    pushMatrix();
-    pushStyle();
-    textSize(64);
-    fill(0);
-    textAlign(LEFT, TOP);
-    text("Bottles: " + bottleCount + "/" + maxBottleCount, 25, 25);
-    popStyle();
-    popMatrix();
   }
   
   int bottleCount = 0;

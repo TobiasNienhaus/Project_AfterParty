@@ -152,7 +152,7 @@ public class DialogueHandler
         "There's no water in this vase.",
         "If I place it back now they're going to notice."
       });
-      vaseFillup = createDialogue("Now I can place it back on the night stand.");
+      vaseFillup = createDialogue("Now I can place it back on the desk.");
       
       remoteDiscover = createDialogue(new String[]{
         "The remote is wet and the batteries no longer work.",

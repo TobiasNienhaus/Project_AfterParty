@@ -1,15 +1,19 @@
 
 public abstract class Guest implements DialogueCallbackReceiver
 {
-  ImageRect iRect;
+  Rect rect;
+  PImage image;
+  
   public Guest(float x, float y, float w, float h, String imgPath)
   {
-    iRect = new ImageRect(x, y, w, h, imgPath);
+    rect = new Rect(x, y, w, h);
+    image = loadImage(imgPath);
   }
   
   public void display()
   {
-    iRect.display();
+    rect.display();
+    image(image, rect.x, rect.y, rect.w, rect.h);
   }
   
   public abstract boolean checkClick();
@@ -34,7 +38,7 @@ public class Wendy extends Guest
   
   public boolean checkClick()
   {
-    if(MouseInRect(iRect))
+    if(MouseInRect(rect))
     {
       if(!startedQuest)
       {
@@ -91,7 +95,7 @@ public class Max extends Guest
   
   public boolean checkClick()
   {
-    if(MouseInRect(iRect))
+    if(MouseInRect(rect))
     {
       if(!startedQuest)
       {
@@ -138,25 +142,28 @@ public class Mike extends Guest
   
   public Mike()
   {
-    super(600, 500, 560, 210, folder + "mike.png");
+    super(550, 448, 655, 283, folder + "c/mike_sleeping.png");
     secondState = new ImageRect(800, 300, 210, 560, folder + "mike.png");
   }
   
   void display()
   {
-    if(!finishedQuest && !left) super.display();
+    if(!finishedQuest && !left) {
+      image(image, 0, 0, width, height);
+      rect.display();
+    }
     else if(finishedQuest && !left) secondState.display(); 
   }
   
   public boolean checkClick()
   {
-    if(!startedQuest && !finishedQuest && MouseInRect(iRect))
+    if(!startedQuest && !finishedQuest && MouseInRect(rect))
     {
       startedQuest = true;
       gameHandler.dHandler.startDialogue(dialogues.mikeStart,this);
       return true;
     }
-    if(startedQuest && !finishedQuest && MouseInRect(iRect))
+    if(startedQuest && !finishedQuest && MouseInRect(rect))
     {
       gameHandler.dHandler.startDialogue(dialogues.mikeInbetween, this);
       return true;
@@ -208,7 +215,7 @@ public class Sarah extends Guest
   
   public boolean checkClick()
   {
-    if(MouseInRect(iRect))
+    if(MouseInRect(rect))
     {
       if(!startedQuest)
       {

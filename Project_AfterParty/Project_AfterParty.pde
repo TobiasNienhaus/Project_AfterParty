@@ -21,11 +21,17 @@ public String folder = "final/";
 PFont fontDialogue;
 PFont fontStraight;
 
-boolean debug = true;
+boolean debug = false;
+
+MainMenu menu;
+boolean runMenu = true;
+
+SoundHandler snd;
 
 void setup()
 {
   fullScreen(FX2D);
+  snd = new SoundHandler(this);
   c = new Cursor();
   noCursor();
   gameHandler = new GameHandler();
@@ -37,23 +43,38 @@ void setup()
   fontStraight = loadFont("Raleway-SemiBold-256.vlw");
   textFont(fontStraight);
   textSize(64);
+  menu = new MainMenu();
 }
 
 void draw()
 {
   background(0);
   handClose();
-  if(!intro.isFinished()) intro.display();
-  else if(!canClose()) 
+  if(runMenu) {
+    runMenu = !menu.run();
+  }
+  else if(!intro.isFinished()) {
+    intro.display();
+    snd.setMusic(Music.Intro);
+  }
+  else if(!canClose()) {
     gameHandler.display();
-  else if(!outro.isFinished()) outro.display();
+    snd.setMusic(Music.Game);
+  }
+  else if(!outro.isFinished()) {
+    if(!gameHandler.t.over()) outro.displayGood();
+    else outro.displayBad();
+    snd.setMusic(Music.Outro);
+  }
   else
   {
     pushStyle(); pushMatrix();
     textAlign(CENTER, CENTER);
     textSize(200);
     fill(255);
-    text("DONE!", width/2f-300, height/2f-300, 600, 600);
+    String t = "Won!\n"+gameHandler.t.getTime();
+    if(gameHandler.t.over()) t = "Failed!";
+    text(t, width/2f-300, height/2f-300, 600, 600);
     popStyle(); popMatrix();
   }
   c.show();
@@ -73,13 +94,15 @@ public void handSelected()
 
 boolean canClose()
 {
-  return (gameHandler.tHandler.allDone() && (!gameHandler.dHandler.hasDialogue));
+  return (gameHandler.tHandler.allDone() && (!gameHandler.dHandler.hasDialogue)) || gameHandler.t.over();
 }
 
 public class Cursor
 {
   PImage hand_selected;
   PImage hand_closed;
+  
+  float w = 64, h = 64;
   
   PImage current;
   
@@ -92,7 +115,7 @@ public class Cursor
   
   public void show()
   {
-    image(current, mouseX - 16, mouseY - 16, 32, 32);
+    image(current, mouseX - w/2f, mouseY - h/2f, w, h);
   }
   
   public void setClosed()

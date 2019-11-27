@@ -44,8 +44,9 @@ public class Timer
     pushMatrix();
     textAlign(CENTER, CENTER);
     textSize(64);
+    textLeading(64);
     float w = textWidth("44444") + 20;
-    float h = textAscent() + 40;
+    float h = textAscent() + textDescent();
     fill(0);
     //noStroke();
     rect(width/2f-w/2f,10,w,h);
@@ -65,5 +66,19 @@ public class Timer
   {
     block = false;
     oldMillis = millis();
+  }
+  
+  public boolean over()
+  {
+    return time <= 0;
+  }
+  
+  public String getTime()
+  {
+    int minutes = time/1000/60;
+    int seconds = (time/1000)%60;
+    int millis = time%1000;
+    return String.format(
+      (java.util.Locale)null, "%02d:%02d", minutes, seconds); 
   }
 }

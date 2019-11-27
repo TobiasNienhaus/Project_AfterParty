@@ -15,13 +15,25 @@ public class Pickup
   public Pickup(float x, float y, float w)
   {
     String path = bottleFiles[int(random(bottleFiles.length))];
-    area = new Rect(x, y, w, w*2);
+    area = new Rect(x, y, w, w);
     img = loadImage(path);
     
     this.x = x;
     this.y = y;
     this.w = w;
-    this.h = w*2;
+    this.h = w;
+  }
+  
+  public Pickup(float x, float y, float w, float h)
+  {
+    String path = bottleFiles[int(random(bottleFiles.length))];
+    area = new Rect(x, y, w, h);
+    img = loadImage(path);
+    
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
   }
   
   void display()
@@ -39,6 +51,7 @@ public class Pickup
       {
         gameHandler.inv.collectBottle();
         picked = true;
+        snd.playOneShot(Sound.Bottle);
         return true;
       }
     }

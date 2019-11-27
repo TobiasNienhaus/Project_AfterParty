@@ -11,7 +11,8 @@ enum Key
 
 void mousePressed()
 {
-  if(!intro.isFinished()) intro.onMouse();
+  if(runMenu) menu.onMouseDown();
+  else if(!intro.isFinished()) intro.onMouse();
   else if(!canClose())
     gameHandler.handleMousePress();
   else if (!outro.isFinished()) outro.onMouse();

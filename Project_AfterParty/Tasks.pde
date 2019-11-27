@@ -14,6 +14,9 @@ public class TaskHandler
   boolean coffeeTask    =false;
   boolean guestTask     =false;
   
+  color green = color(90,164,53);
+  color red = color(216,55,55);
+  
   Rect taskRect;
   float rectW;
   
@@ -70,33 +73,36 @@ public class TaskHandler
     pushMatrix();
     pushStyle();
     textAlign(CENTER, TOP);
+    textFont(fontDialogue);
     textSize(60);
     textLeading(60);
     
     float lh = textAscent() + textDescent();
-    fill(0);
+    noStroke();
+    fill(0,128);
     rect(width/2f - (rectW*1.1f)/2f, 200, rectW*1.1, lh*7);
     
-    fill(255, 0, 0);
-    if(vaseTask) fill(0, 255, 0);
+    fill(red);
+    if(vaseTask) fill(green);
     text("Clean up the vase", width/2f, 200 + lh*0);
-    fill(255, 0, 0);
-    if(bottleTask) fill(0, 255, 0);
-    text("Collect all bottles", width/2f, 200 + lh*1);
-    fill(255, 0, 0);
-    if(remoteTask) fill(0, 255, 0);
+    fill(red);
+    if(bottleTask) fill(green);
+    text("Collect all bottles (" + gameHandler.inv.bottleCount 
+      + "/" + gameHandler.inv.maxBottleCount + ")", width/2f, 200 + lh*1);
+    fill(red);
+    if(remoteTask) fill(green);
     text("Repair the remote", width/2f, 200 + lh*2);
-    fill(255, 0, 0);
-    if(mopTask) fill(0, 255, 0);
+    fill(red);
+    if(mopTask) fill(green);
     text("Mop up the dirt", width/2f, 200 + lh*3);
-    fill(255, 0, 0);
-    if(lightTask) fill(0, 255, 0);
+    fill(red);
+    if(lightTask) fill(green);
     text("Repair the night lamp", width/2f, 200 + lh*4);
-    fill(255, 0, 0);
-    if(coffeeTask) fill(0, 255, 0);
+    fill(red);
+    if(coffeeTask) fill(green);
     text("Drink some coffee", width/2f, 200 + lh*5);
-    fill(255, 0, 0);
-    if(guestTask) fill(0, 255, 0);
+    fill(red);
+    if(guestTask) fill(green);
     text("Throw out all of the guests (" + gameHandler.guestsGone() + "/4)", width/2f, 200 + lh*6);
     popStyle();
     popMatrix();
@@ -111,7 +117,7 @@ public class TaskHandler
     textLeading(60);
     float res = 0f;
     float t1 = textWidth("Clean up the vase");
-    float t2 = textWidth("Collect all bottles");
+    float t2 = textWidth("Collect all bottles (7/74)");
     float t3 = textWidth("Repair the remote");
     float t4 = textWidth("Mop up the dirt");
     float t5 = textWidth("Repair the night lamp");
