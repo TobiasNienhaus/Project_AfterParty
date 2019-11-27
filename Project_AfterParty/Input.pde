@@ -16,7 +16,8 @@ void mousePressed()
   else if(!canClose())
     gameHandler.handleMousePress();
   else if (!outro.isFinished()) outro.onMouse();
-  else exit();
+  else endMenu.onMouse(); 
+  //exit();
 }
 
 void mouseReleased()

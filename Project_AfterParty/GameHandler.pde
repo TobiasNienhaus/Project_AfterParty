@@ -38,31 +38,26 @@ public class GameHandler
   public void toKitchen()
   {
     active = kitchen;
-    snd.playOneShot(Sound.Door);
   }
   
   public void toLiving()
   {
     active = living;
-    snd.playOneShot(Sound.Door);
   }
   
   public void toBath()
   {
     active = bath;
-    snd.playOneShot(Sound.Door);
   }
   
   public void toBedroom()
   {
     active = bedroom;
-    snd.playOneShot(Sound.Door);
   }
   
   public void toHall()
   {
     active = hall;
-    snd.playOneShot(Sound.Door);
   }
   
   public boolean allGuestsLeft()

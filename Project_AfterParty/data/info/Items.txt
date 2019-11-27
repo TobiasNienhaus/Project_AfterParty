@@ -1,0 +1,31 @@
+Items
+    Item                    Filename                    aspect ratio
+    -----------------------------------------------------------------
+    (cup of coffee)
+    empty cup               cup.png                     1x1
+    -(witch) hat             hat.png                     1x1
+    -badge                   badge.png                   1x1
+    -Batteries               batteries.png               1x1
+    beans                   beans.png                   1x1
+    Bottle                  bottle.png                  1x2
+    coffee machine
+        Empty               coffeemachine_empty.png     1x1
+        Beans               coffeemachine_beans.png     1x1
+    -Fish Bowl
+    -    With Remote         fishbowl_remote.png         1x1
+    -    Without Remote      fishbowl_empty.png          1x1
+    Hair Dryer              hairdryer.png               1x1
+    Lamp
+        Broken              lamp_broken.png             1x1
+        Fixed               lamp_fixed.png              1x1
+    Light Bulb              lightbulb.png               1x1
+    Mop                     mop.png                     1x4
+    necklace                necklace.png                1x1
+    Remote
+        Wet                 remote_wet.png              1x1
+        Dry                 remote_dry.png              1x1
+        With Batteries      remote_complete.png         1x1
+    Tap                     tap.png                     1x1
+    Vase                    vase.png                    7x16
+        Empty               vase_empty.png              7x16
+        Full                vase_full.png               7x16

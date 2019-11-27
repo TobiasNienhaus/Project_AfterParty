@@ -2,7 +2,7 @@
 public class IntroHandler
 {
   PImage[] images;
-  int imageCount = 4;
+  int imageCount = 6;
   
   int curr = 0;
   
@@ -38,17 +38,22 @@ public class IntroHandler
 
 public class OutroHandler
 {
-  PImage[] images;
+  PImage[] good, bad;
   int imageCount = 2;
   
   int curr = 0;
   
   public OutroHandler()
   {
-    images = new PImage[imageCount];
+    good = new PImage[imageCount];
+    bad = new PImage[imageCount];
     for(int i = 0; i < imageCount; i++)
     {
-      images[i] = loadImage(folder + "intro/" + (i+1) + ".png");
+      good[i] = loadImage(folder + "intro/" + (i+1) + ".png");
+    }
+    for(int i = 0; i < imageCount; i++)
+    {
+      bad[i] = loadImage(folder + "intro/" + (i+1) + ".png");
     }
   }
   
@@ -56,7 +61,7 @@ public class OutroHandler
   {
     if(!isFinished())
     {
-      image(images[curr], 0, 0, width, height);
+      image(good[curr], 0, 0, width, height);
       gameHandler.t.block();
     }
   }
@@ -65,7 +70,7 @@ public class OutroHandler
   {
     if(!isFinished())
     {
-      image(images[curr], 0, 0, width, height);
+      image(bad[curr], 0, 0, width, height);
       gameHandler.t.block();
     }
   }

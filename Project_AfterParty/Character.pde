@@ -44,11 +44,13 @@ public class Wendy extends Guest
       {
         startedQuest = true;
         gameHandler.dHandler.startDialogue(dialogues.wendyStart,this);
+        snd.playOneShot();
         return true;
       }
       if(startedQuest && !finishedQuest)
       {
         gameHandler.dHandler.startDialogue(dialogues.wendyInbetween, this);
+        snd.playOneShot();
         return true;
       }
     }
@@ -83,14 +85,17 @@ public class Max extends Guest
   boolean finishedQuest = false;
   boolean left = false;
   
-  public Max(float x, float y, float w, float h)
+  public Max()
   {
-    super(x, y, w, h, folder + "max.png");
+    super(1190, 399, 226, 651, folder + "c/max.png");
   }
   
   void display()
   {
-    if(!left) super.display();
+    if(!left) {
+      image(image, 0, 0, width, height);
+      rect.display();
+    }
   }
   
   public boolean checkClick()
@@ -143,7 +148,7 @@ public class Mike extends Guest
   public Mike()
   {
     super(550, 448, 655, 283, folder + "c/mike_sleeping.png");
-    secondState = new ImageRect(800, 300, 210, 560, folder + "mike.png");
+    secondState = new ImageRect(0, 0, 1920, 1080, folder + "c/mike_wet.png", false);
   }
   
   void display()
@@ -203,14 +208,17 @@ public class Sarah extends Guest
   boolean finishedQuest = false;
   boolean left = false;
   
-  public Sarah(float x, float y, float w, float h)
+  public Sarah()
   {
-    super(x, y, w, h, folder + "sarah.png");
+    super(1005, 483, 191, 445, folder + "c/sarah.png");
   }
   
   void display()
   {
-    if(!left) super.display();
+    if(!left) {
+      image(image, 0, 0, width, height);
+      rect.display();
+    }
   }
   
   public boolean checkClick()

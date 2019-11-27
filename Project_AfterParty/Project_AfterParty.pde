@@ -25,6 +25,7 @@ boolean debug = false;
 
 MainMenu menu;
 boolean runMenu = true;
+EndMenu endMenu;
 
 SoundHandler snd;
 
@@ -39,11 +40,12 @@ void setup()
   dialogues = gameHandler.dHandler.createContainer();
   intro = new IntroHandler();
   outro = new OutroHandler();
-  fontDialogue = loadFont("IndieFlower-256.vlw");
-  fontStraight = loadFont("Raleway-SemiBold-256.vlw");
+  fontDialogue = loadFont("fonts/IndieFlower-256.vlw");
+  fontStraight = loadFont("fonts/Raleway-SemiBold-256.vlw");
   textFont(fontStraight);
   textSize(64);
   menu = new MainMenu();
+  endMenu = new EndMenu();
 }
 
 void draw()
@@ -66,7 +68,11 @@ void draw()
     else outro.displayBad();
     snd.setMusic(Music.Outro);
   }
-  else
+  else {
+    endMenu.setState(gameHandler.t.over());
+    endMenu.run();
+  }
+  /*
   {
     pushStyle(); pushMatrix();
     textAlign(CENTER, CENTER);
@@ -77,6 +83,7 @@ void draw()
     text(t, width/2f-300, height/2f-300, 600, 600);
     popStyle(); popMatrix();
   }
+  */
   c.show();
 }
 

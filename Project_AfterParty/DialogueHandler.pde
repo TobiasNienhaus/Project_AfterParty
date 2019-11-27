@@ -83,6 +83,7 @@ public class DialogueHandler
   {
     if(!hasDialogue) return false;
     current.next();
+    snd.playOneShot();
     if(current.finished)
     {
       hasDialogue = false;

@@ -1,12 +1,14 @@
 enum Music
 {
-  Intro, Game, Outro
+  Intro, Game, Outro, None
 }
 
 enum Sound
 {
   Click, Water, Bottle, Door, Hairdryer, Tap, Stairs;
 }
+
+boolean muteMusic = false;
 
 String clickSnd = "sound/click.mp3", 
   waterSnd = "sound/water.wav", 
@@ -16,9 +18,9 @@ String clickSnd = "sound/click.mp3",
   tapSnd = "sound/tap.mp3",
   stairsSnd = "sound/stairs.mp3";
   
-String introMsc = "sound/intro.mp3",
-  gameMsc = "sound/game.mp3",
-  outroMsc = "sound/outro.mp3";
+String introMsc = "sound/m/intro.mp3",
+  gameMsc = "sound/m/game.wav",
+  outroMsc = "sound/m/outro.mp3";
 
 public class SoundHandler
 {
@@ -32,6 +34,8 @@ public class SoundHandler
   AudioPlayer stairs;
   
   AudioPlayer intro, game, outro;
+  
+  Music oldMusic = Music.None;
   
   public SoundHandler(Object obj)
   {
@@ -50,34 +54,37 @@ public class SoundHandler
     intro.setGain(-16);
     game.setGain(-16);
     outro.setGain(-16);
-    
-    intro.skip(75000);
   }
   
   public void setMusic(Music m)
   {
+    if(muteMusic) return;
+    if(m == oldMusic) return;
+    oldMusic = m;
     switch(m)
     {
     case Intro:
-      intro.play();
+      intro.loop();
+      intro.skip(75000);
       game.rewind();
       game.pause();
       outro.rewind();
       outro.pause();
       break;
     case Game:
-      game.play();
-      intro.rewind();
+      game.loop();
       intro.pause();
       outro.rewind();
       outro.pause();
       break;
     case Outro:
-      outro.play();
-      intro.rewind();
+      outro.loop();
       intro.pause();
       game.rewind();
       game.pause();
+      break;
+    case None:
+      println("Error: Wrong music state");
       break;
     }
   }
