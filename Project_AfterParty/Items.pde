@@ -305,6 +305,7 @@ public class HairdryerItem extends Item
     {
       gameHandler.driedRemote = true;
       gameHandler.dHandler.startDialogue(dialogues.remoteDrying,null);
+      snd.playOneShot(Sound.Hairdryer);
       return new RemoteDryItem(x, y, w, h);
     }
     return new ErrorItem();
@@ -359,6 +360,7 @@ public class RemoteWetItem extends Item
     {
       gameHandler.dHandler.startDialogue(dialogues.remoteDrying,null);
       gameHandler.driedRemote = true;
+      snd.playOneShot(Sound.Hairdryer);
       return new RemoteDryItem(x, y, w, h);
     }
     if(other.getType() == ItemType.Batteries)

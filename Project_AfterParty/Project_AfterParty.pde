@@ -76,10 +76,10 @@ void draw()
       snd.playOutroBad();
     }
   }
-  else {
-    endMenu.setState(gameHandler.t.over());
-    endMenu.run();
-  }
+  //else {
+  //  endMenu.setState(gameHandler.t.over());
+  //  endMenu.run();
+  //}
   /*
   {
     pushStyle(); pushMatrix();
@@ -142,13 +142,4 @@ public class Cursor
   {
     current = hand_selected;
   }
-}
-
-public void image(PImage img, float x, float y, float w, float h, boolean flag)
-{
-  float newX = map(x, 0, 1920, 0, width);
-  float newY = map(y, 0, 1920, 0, height);
-  float newW = map(w, 0, 1920, 0, width);
-  float newH = map(h, 0, 1920, 0, height);
-  image(img, newX, newY, newW, newH);
 }

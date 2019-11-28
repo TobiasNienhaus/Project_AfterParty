@@ -11,7 +11,9 @@ public class Pickup
   final String[] bottleFiles = new String[] {
     folder + "bottle.png",
     folder + "bottle2.png",
-    folder + "can.png"
+    folder + "can.png",
+    folder + "chips1.png",
+    folder + "chips2.png"
   };
   
   public Pickup(float x, float y, float w)

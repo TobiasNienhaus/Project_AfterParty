@@ -85,13 +85,13 @@ public class LivingRoom extends Room implements DialogueCallbackReceiver
     fishbowl_remote = new ImageRect(1780, 650, 100, 100, folder + "fishbowl_remote.png");
     fishbowl_empty = new ImageRect(1780, 650, 100, 100, folder + "fishbowl_empty.png", false);
     
-    dirt = new ImageRect(140, 850, 240, 160, folder + "dirt.png");
+    dirt = new ImageRect(180, 890, 150, 100, folder + "dirt.png");
     bottle1 = new Pickup(25, 925, 100);
     bottle2 = new Pickup(1700, 900, 80);
     
     fixedRemote = loadImage(folder + "remote_complete.png");
     
-    wendy = new Wendy(410, 450, 210, 560);
+    wendy = new Wendy(485, 459, 146, 563);
   }
   
   public void display()
@@ -205,7 +205,7 @@ public class Kitchen extends Room implements DialogueCallbackReceiver
     
     cupItem = new HiddenItem(1485, 537, 40, 40, ItemType.Cup, folder + "cup.png");
     
-    bottle1 = new Pickup(200, 950, 80);
+    bottle1 = new Pickup(180, 950, 80);
     
     necklace = new HiddenItem(430, 792, 60, 80, ItemType.Necklace, folder + "necklace.png");
     
@@ -396,8 +396,6 @@ public class Bathroom extends Room implements DialogueCallbackReceiver
 {
   Rect door;
   Rect tap;
-  HiddenItem hairdryer;
-  Rect hairdryerNoInteract;
   Rect shower;
   
   Mike mike;
@@ -411,8 +409,6 @@ public class Bathroom extends Room implements DialogueCallbackReceiver
     super("Bathroom", loadImage("bg/bath.png"));
     door = new Rect(136, 0, 276, 1080);
     tap = new Rect(1742, 507, 92, 86);
-    hairdryer = new HiddenItem(1606, 510, 75, 75, ItemType.Hairdryer, folder + "hairdryer.png");
-    hairdryerNoInteract = new ImageRect(1606, 510, 75, 75, folder + "hairdryer.png", false);
     cabinet = new Rect(1683, 639, 75, 355);
     shower = new Rect(522, 162, 170, 150);
     
@@ -450,11 +446,12 @@ public class Bathroom extends Room implements DialogueCallbackReceiver
       gameHandler.dHandler.startDialogue(dialogues.wendyFindHat, this);
     }
     if(!hasDryer && MouseInRect(cabinet)) {
-      gameHandler.inv.AddItem(ItemType.Hairdryer);
-      cabinet.changeCursor = false;
-      hasDryer = true;
-      snd.playOneShot();
-      gameHandler.dHandler.startDialogue(dialogues.hairdryer,this);
+      if(gameHandler.inv.AddItem(ItemType.Hairdryer)) {
+        cabinet.changeCursor = false;
+        hasDryer = true;
+        snd.playOneShot();
+        gameHandler.dHandler.startDialogue(dialogues.hairdryer,this);
+      }
     }
   }
   
@@ -506,7 +503,7 @@ class Bedroom extends Room implements DialogueCallbackReceiver
     vaseFull = new ImageRect(1153, 500, 115, 115, folder + "vase_full.png", false);
     
     bottle1 = new Pickup(1610, 725, 40);
-    bottle2 = new Pickup(50, 950, 80, 80);
+    bottle2 = new Pickup(60, 960, 80, 80);
     badge = new HiddenItem(1820, 800, 50, 50, ItemType.Badge, folder + "badge.png");
     
     sarah = new Sarah();

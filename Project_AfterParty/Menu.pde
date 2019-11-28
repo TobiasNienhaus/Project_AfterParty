@@ -4,28 +4,35 @@ public class MainMenu
 { 
   Rect start;
   Rect exit;
+  PImage img;
   
   public MainMenu()
   {
-    start = new Rect(width/2f-200, height/2f-200, 400, 200);
-    exit = new Rect(width/2f-200, height/2f+100, 400, 200);
+    img = loadImage(folder + "menu/main.png");
+    start = new Rect(578, 714, 700, 267);
+    exit = new Rect(0, 920, 160, 160);
   }
   
   boolean shouldStart = false;
   
   void onMouseDown()
   {
-    if(MouseInRect(start)) shouldStart = true;
-    if(MouseInRect(exit)) exit();
+    if(MouseInRect(start)) {
+      shouldStart = true;
+      snd.playOneShot();
+    }
+    if(MouseInRect(exit)) {
+      snd.playOneShot();
+      exit();
+    }
   }
   
   boolean run()
   {
     background(0);
+    image(img, 0, 0, width, height);
     start.display();
-    rect(start.x, start.y, start.w, start.h);
     exit.display();
-    rect(exit.x, exit.y, exit.w, exit.h);
     return shouldStart;
   }
 }

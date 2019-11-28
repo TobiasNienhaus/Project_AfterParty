@@ -2,7 +2,7 @@
 public class IntroHandler
 {
   PImage[] images;
-  int imageCount = 8;
+  int imageCount = 9;
   
   int curr = 0;
   
@@ -27,8 +27,12 @@ public class IntroHandler
   public void onMouse()
   {
     curr++;
+    snd.playOneShot();
     if(curr == 2) snd.setMusic(Music.Intro);
-    if(curr == 5) snd.setMusic(Music.None);
+    if(curr == 6) {
+      snd.setMusic(Music.None);
+      snd.playOneShot(Sound.Phone);
+    }
     if(isFinished()) gameHandler.t.unblock();
   }
   
@@ -40,31 +44,34 @@ public class IntroHandler
 
 public class OutroHandler
 {
-  PImage[] good, bad;
-  int imageCount = 2;
+  PImage good, bad;
+  int imageCount = 1;
   
   int curr = 0;
   
   public OutroHandler()
   {
-    good = new PImage[imageCount];
-    bad = new PImage[imageCount];
-    for(int i = 0; i < imageCount; i++)
-    {
-      good[i] = loadImage(folder + "intro/" + (i+1) + ".png");
-    }
-    for(int i = 0; i < imageCount; i++)
-    {
-      bad[i] = loadImage(folder + "intro/" + (i+1) + ".png");
-    }
+    good = loadImage(folder + "outro/good.png");
+    bad = loadImage(folder + "outro/bad.png");
   }
   
   public void displayGood()
   {
     if(!isFinished())
     {
-      image(good[curr], 0, 0, width, height);
+      image(good, 0, 0, width, height);
       gameHandler.t.block();
+      String timeLeft = "Time left: " + gameHandler.t.getTime();
+      pushStyle();
+      textSize(80);
+      textLeading(80);
+      textAlign(CENTER, CENTER);
+      float w = textWidth(timeLeft);
+      fill(0);
+      rect(width/2f-w/2f, height/2f + 300, w+10, textAscent()+textDescent()+10);
+      fill(255);
+      text(timeLeft, width/2f-w/2f, height/2f + 300, w+10, textAscent()+textDescent()+10);
+      popStyle();
     }
   }
   
@@ -72,7 +79,7 @@ public class OutroHandler
   {
     if(!isFinished())
     {
-      image(bad[curr], 0, 0, width, height);
+      image(bad, 0, 0, width, height);
       gameHandler.t.block();
     }
   }
@@ -80,7 +87,10 @@ public class OutroHandler
   public void onMouse()
   {
     curr++;
-    if(isFinished()) gameHandler.t.unblock();
+    if(isFinished()) {
+      gameHandler.t.unblock();
+      exit();
+    }
   }
   
   public boolean isFinished()

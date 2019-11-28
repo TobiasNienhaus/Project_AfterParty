@@ -5,7 +5,7 @@ enum Music
 
 enum Sound
 {
-  Click, Water, Bottle, Door, Hairdryer, Tap, Stairs
+  Click, Water, Bottle, Door, Hairdryer, Tap, Stairs, Phone
 }
 
 boolean muteMusic = false;
@@ -16,7 +16,8 @@ String clickSnd = "sound/click.mp3",
   doorSnd = "sound/door.mp3", 
   hairdryerSnd = "sound/hairdryer.mp3",
   tapSnd = "sound/tap.mp3",
-  stairsSnd = "sound/stairs.mp3";
+  stairsSnd = "sound/stairs.mp3",
+  phoneSnd = "sound/phone.mp3";
   
 String outroGoodSnd = "sound/outroGood.mp3";
 String outroBadSnd = "sound/outroBad.mp3";
@@ -34,6 +35,7 @@ public class SoundHandler
   AudioPlayer hairdryer;
   AudioPlayer tap;
   AudioPlayer stairs;
+  AudioPlayer phone;
   
   AudioPlayer intro, game;
   
@@ -53,6 +55,7 @@ public class SoundHandler
     stairs = minim.loadFile(stairsSnd);
     intro = minim.loadFile(introMsc);
     game = minim.loadFile(gameMsc);
+    phone = minim.loadFile(phoneSnd);
     
     outroGood = minim.loadFile(outroGoodSnd);
     outroBad = minim.loadFile(outroBadSnd);
@@ -119,6 +122,11 @@ public class SoundHandler
       break;
     case Stairs:
       stairs.play(0);
+      break;
+    case Phone:
+      phone.play(0);
+      break;
+    default:
       break;
     }
   }
