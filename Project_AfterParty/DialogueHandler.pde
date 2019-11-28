@@ -51,7 +51,7 @@ public class DialogueHandler
     pushStyle();
     fill(255);
     stroke(0);
-    strokeWeight(10);
+    strokeWeight(3);
     textFont(fontDialogue);
     textSize(60);
     textLeading(60);
@@ -59,7 +59,7 @@ public class DialogueHandler
     float rectX = (width - rectW) /2f;
     float rectH = height * .2f;
     float rectY = height - rectH - (rectH * .25f);
-    rect(rectX, rectY, rectW, rectH);
+    rect(rectX, rectY, rectW, rectH, 10);
     textAlign(CENTER, CENTER);
     fill(0);
     text(current.getLine(), rectX+10, rectY+10, rectW-20, rectH-20);
@@ -134,6 +134,7 @@ public class DialogueHandler
     Dialogue wendyInbetween;
     Dialogue wendyComplete;
     Dialogue wendyLeave;
+    Dialogue wendyFindHat;
     
     Dialogue maxStart;
     Dialogue maxInbetween;
@@ -146,6 +147,15 @@ public class DialogueHandler
     Dialogue sarahStart;
     Dialogue sarahInbetween;
     Dialogue sarahComplete;
+    
+    Dialogue noMop;
+    
+    Dialogue necklace;
+    Dialogue cup;
+    Dialogue beans;
+    Dialogue hairdryer;
+    Dialogue mop;
+    Dialogue badge;
     
     public DialogueContainer()
     {
@@ -187,6 +197,14 @@ public class DialogueHandler
       bottle5 = createDialogue("And that's five.");
       bottle6 = createDialogue("Looks like that's all of them.");
       
+      noMop = createDialogue("I will need a mop for that...");
+      necklace = createDialogue("Sarah's pendant, I should bring this to her.");
+      cup = createDialogue("A coffee cup for a cup of coffee.");
+      beans = createDialogue("Those are strong. Should be enough for a cup of good hangover coffee");
+      hairdryer = createDialogue("Maybe this will work to dry the remote with?");
+      mop = createDialogue("This should clean up the spillage in the living room");
+      badge = createDialogue("Max' badge, I should bring this to him.");
+      
       wendyStart = createDialogue(new String[]{
         "Player: Hey, Wendy, I’m sorry for breaking up the fun, but you have to leave.",
         "Wendy (panicky): No! I can’t leave without my hat – I will be cursed!",
@@ -202,6 +220,7 @@ public class DialogueHandler
         "Wendy: Yes, of course. I will be on my way. Goodbye!"
       });
       wendyLeave = createDialogue("Player (silently): What a weirdo.");
+      wendyFindHat = createDialogue("There's Wendys hat!");
       
       maxStart = createDialogue(new String[]{
         "Player: Howdy, Max! Can I ask you to…",

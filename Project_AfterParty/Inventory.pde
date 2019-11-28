@@ -86,6 +86,8 @@ public class Inventory
     items[index].item = item;
     items[index].updatePos();
     items[index].updateSize();
+    if(item.getType() == ItemType.Hat)
+      ((HatItem)items[index].item).ui = true;
     return true;
   }
   
@@ -98,6 +100,8 @@ public class Inventory
     items[index].item = item;
     items[index].updatePos();
     items[index].updateSize();
+    if(type == ItemType.Hat)
+      ((HatItem)items[index].item).ui = true;
     return true;
   }
   
@@ -237,6 +241,8 @@ public class Inventory
         draggedItem = createItemFromType(items[i].item);
         if(draggedItem.getType() == ItemType.Empty || draggedItem.getType() == ItemType.Error);
         else {
+          if(draggedItem.getType() == ItemType.Hat)
+            ((HatItem)draggedItem).ui = true;
           draggedIndex = i;
           deleteItem(draggedIndex);
           reorderArray();

@@ -4,11 +4,6 @@ enum MouseButton
   Left, Right, Middle
 }
 
-enum Key
-{
-  A, S, D, W
-}
-
 void mousePressed()
 {
   if(runMenu) menu.onMouseDown();
@@ -23,9 +18,4 @@ void mousePressed()
 void mouseReleased()
 {
   gameHandler.handleMouseUp();
-}
-
-void keyPressed()
-{
-  gameHandler.handleKeyPress();
 }

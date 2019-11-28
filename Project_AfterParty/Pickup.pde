@@ -9,7 +9,9 @@ public class Pickup
   boolean picked = false;
   
   final String[] bottleFiles = new String[] {
-    folder + "bottle.png"
+    folder + "bottle.png",
+    folder + "bottle2.png",
+    folder + "can.png"
   };
   
   public Pickup(float x, float y, float w)

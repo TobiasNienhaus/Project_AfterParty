@@ -190,17 +190,30 @@ public class ErrorItem extends Item
 
 public class HatItem extends Item
 {
+  PImage img;
   public HatItem(float x, float y, float w, float h)
   {
     super(x, y, w, h, folder + "hat.png");
+    ui = false;
+    img = loadImage(folder + "hat_ui.png");
   }
+  
+  public boolean ui;
   
   public ItemType getType() { return ItemType.Hat; }
   
   public Item Combine(Item other)
   {
-    
     return new ErrorItem();
+  }
+  
+  void display()
+  {
+    if(ui) {
+      image(img, x, y, w, h);
+    } else {
+      super.display();
+    }
   }
 }
 

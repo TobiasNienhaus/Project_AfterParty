@@ -1,11 +1,11 @@
 enum Music
 {
-  Intro, Game, Outro, None
+  Intro, Game, None
 }
 
 enum Sound
 {
-  Click, Water, Bottle, Door, Hairdryer, Tap, Stairs;
+  Click, Water, Bottle, Door, Hairdryer, Tap, Stairs
 }
 
 boolean muteMusic = false;
@@ -18,9 +18,11 @@ String clickSnd = "sound/click.mp3",
   tapSnd = "sound/tap.mp3",
   stairsSnd = "sound/stairs.mp3";
   
+String outroGoodSnd = "sound/outroGood.mp3";
+String outroBadSnd = "sound/outroBad.mp3";
+  
 String introMsc = "sound/m/intro.mp3",
-  gameMsc = "sound/m/game.wav",
-  outroMsc = "sound/m/outro.mp3";
+  gameMsc = "sound/m/game.wav";
 
 public class SoundHandler
 {
@@ -33,7 +35,9 @@ public class SoundHandler
   AudioPlayer tap;
   AudioPlayer stairs;
   
-  AudioPlayer intro, game, outro;
+  AudioPlayer intro, game;
+  
+  AudioPlayer outroGood, outroBad;
   
   Music oldMusic = Music.None;
   
@@ -49,11 +53,15 @@ public class SoundHandler
     stairs = minim.loadFile(stairsSnd);
     intro = minim.loadFile(introMsc);
     game = minim.loadFile(gameMsc);
-    outro = minim.loadFile(outroMsc);
+    
+    outroGood = minim.loadFile(outroGoodSnd);
+    outroBad = minim.loadFile(outroBadSnd);
     
     intro.setGain(-16);
     game.setGain(-16);
-    outro.setGain(-16);
+    
+    goodPlaying = false;
+    badPlaying = false;
   }
   
   public void setMusic(Music m)
@@ -65,26 +73,19 @@ public class SoundHandler
     {
     case Intro:
       intro.loop();
-      intro.skip(75000);
       game.rewind();
       game.pause();
-      outro.rewind();
-      outro.pause();
       break;
     case Game:
       game.loop();
       intro.pause();
-      outro.rewind();
-      outro.pause();
-      break;
-    case Outro:
-      outro.loop();
-      intro.pause();
-      game.rewind();
-      game.pause();
+      intro.rewind();
       break;
     case None:
-      println("Error: Wrong music state");
+      intro.pause();
+      intro.rewind();
+      game.rewind();
+      game.pause();
       break;
     }
   }
@@ -119,6 +120,26 @@ public class SoundHandler
     case Stairs:
       stairs.play(0);
       break;
+    }
+  }
+  
+  boolean goodPlaying = false;
+  public void playOutroGood()
+  {
+    if(!goodPlaying)
+    {
+      goodPlaying = true;
+      outroGood.play(0);
+    }
+  }
+  
+  boolean badPlaying = false;
+  public void playOutroBad()
+  {
+    if(!badPlaying)
+    {
+      badPlaying = true;
+      outroBad.play(0);
     }
   }
 }

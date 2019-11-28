@@ -45,6 +45,7 @@ void setup()
   textFont(fontStraight);
   textSize(64);
   menu = new MainMenu();
+  runMenu = true;
   endMenu = new EndMenu();
 }
 
@@ -64,9 +65,16 @@ void draw()
     snd.setMusic(Music.Game);
   }
   else if(!outro.isFinished()) {
-    if(!gameHandler.t.over()) outro.displayGood();
-    else outro.displayBad();
-    snd.setMusic(Music.Outro);
+    if(!gameHandler.t.over()) {
+      outro.displayGood();
+      snd.setMusic(Music.None);
+      snd.playOutroGood();
+    }
+    else {
+      outro.displayBad();
+      snd.setMusic(Music.None);
+      snd.playOutroBad();
+    }
   }
   else {
     endMenu.setState(gameHandler.t.over());
@@ -134,4 +142,13 @@ public class Cursor
   {
     current = hand_selected;
   }
+}
+
+public void image(PImage img, float x, float y, float w, float h, boolean flag)
+{
+  float newX = map(x, 0, 1920, 0, width);
+  float newY = map(y, 0, 1920, 0, height);
+  float newW = map(w, 0, 1920, 0, width);
+  float newH = map(h, 0, 1920, 0, height);
+  image(img, newX, newY, newW, newH);
 }

@@ -1,0 +1,8 @@
+Instructions
+------------------------------------------------------------------------
+See the tasks you still need to doby moving your mouse to the top right.
+Let objects interact by dragging them on each other.
+Click on objects and characters.
+Click on doors and staircases to change rooms.
+Beware some items are hidden!
+Hurry up, your parents will be back soon!

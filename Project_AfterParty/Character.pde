@@ -28,12 +28,15 @@ public class Wendy extends Guest
   
   public Wendy(float x, float y, float w, float h)
   {
-    super(x, y, w, h, folder + "wendy.png");
+    super(x, y, w, h, folder + "c/wendy.png");
   }
   
   void display()
   {
-    if(!left) super.display();
+    if(!left) {
+      image(image, 0, 0, width, height);
+      rect.display();
+    }
   }
   
   public boolean checkClick()

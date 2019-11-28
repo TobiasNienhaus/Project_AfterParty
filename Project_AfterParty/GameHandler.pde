@@ -31,7 +31,7 @@ public class GameHandler
     bath = new Bathroom();
     bedroom = new Bedroom();
     
-    active = bath;
+    active = living;
     t = new Timer();
   }
   
@@ -107,11 +107,6 @@ public class GameHandler
     tHandler.display();
     dHandler.display();
     t.display();
-  }
-  
-  void handleKeyPress()
-  {
-    active.handleKeyDown(Key.A);
   }
   
   void handleMousePress()

@@ -2,7 +2,7 @@
 public class IntroHandler
 {
   PImage[] images;
-  int imageCount = 6;
+  int imageCount = 8;
   
   int curr = 0;
   
