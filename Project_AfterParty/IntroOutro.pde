@@ -27,6 +27,8 @@ public class IntroHandler
   public void onMouse()
   {
     curr++;
+    if(curr == 2) snd.setMusic(Music.Intro);
+    if(curr == 5) snd.setMusic(Music.None);
     if(isFinished()) gameHandler.t.unblock();
   }
   

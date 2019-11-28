@@ -87,7 +87,7 @@ public class TaskHandler
     text("Clean up the vase", width/2f, 200 + lh*0);
     fill(red);
     if(bottleTask) fill(green);
-    text("Collect all bottles (" + gameHandler.inv.bottleCount 
+    text("Collect all of the garbage (" + gameHandler.inv.bottleCount 
       + "/" + gameHandler.inv.maxBottleCount + ")", width/2f, 200 + lh*1);
     fill(red);
     if(remoteTask) fill(green);
@@ -117,7 +117,7 @@ public class TaskHandler
     textLeading(60);
     float res = 0f;
     float t1 = textWidth("Clean up the vase");
-    float t2 = textWidth("Collect all bottles (7/74)");
+    float t2 = textWidth("Collect all of the garbage (7/74)");
     float t3 = textWidth("Repair the remote");
     float t4 = textWidth("Mop up the dirt");
     float t5 = textWidth("Repair the night lamp");

@@ -58,7 +58,7 @@ void draw()
   }
   else if(!intro.isFinished()) {
     intro.display();
-    snd.setMusic(Music.Intro);
+    //snd.setMusic(Music.Intro);
   }
   else if(!canClose()) {
     gameHandler.display();
