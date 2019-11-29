@@ -14,9 +14,9 @@ String clickSnd = "sound/click.mp3",
   waterSnd = "sound/water.wav", 
   bottleSnd = "sound/bottle.mp3", 
   doorSnd = "sound/door.mp3", 
-  hairdryerSnd = "sound/hairdryer.mp3",
-  tapSnd = "sound/tap.mp3",
-  stairsSnd = "sound/stairs.mp3",
+  hairdryerSnd = "sound/hairdryer.mp3", 
+  tapSnd = "sound/tap.mp3", 
+  stairsSnd = "sound/stairs.mp3", 
   phoneSnd = "sound/phone.mp3";
   
 String outroGoodSnd = "sound/outroGood.mp3";

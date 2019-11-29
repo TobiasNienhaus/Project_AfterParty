@@ -192,11 +192,11 @@ public class Kitchen extends Room implements DialogueCallbackReceiver
     super("Kitchen", loadImage("bg/kitchen.png"));
     door = new Rect(531, 306, 275, 400);
     
-    cupboard = new Rect(1420, 625, 105, 130);
+    cupboard = new Rect(1420, 625, 150, 130);
     
-    cabinet = new Rect(1223, 190, 90, 153);
+    cabinet = new Rect(1223, 190, 150, 153);
     
-    drawer = new Rect(1668, 590, 106, 50);
+    drawer = new Rect(1668, 590, 106, 150);
     
     tap = new Rect(1540, 530, 86, 51);
     
