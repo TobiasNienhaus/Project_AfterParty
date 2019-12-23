@@ -5,8 +5,6 @@ import ddf.minim.signals.*;
 import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
 
-import processing.sound.*;
-
 GameHandler gameHandler;
 DialogueHandler.DialogueContainer dialogues;
 
@@ -31,7 +29,9 @@ SoundHandler snd;
 
 void setup()
 {
-  fullScreen(FX2D);
+  //fullScreen(FX2D);
+  size(1920, 1080);
+  surface.setResizable(false);
   snd = new SoundHandler(this);
   c = new Cursor();
   noCursor();
